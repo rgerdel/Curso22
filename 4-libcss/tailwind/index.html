@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!--<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>-->
+  <link rel="stylesheet" href="src/output.css">
+</head>
+<body>
+  <!--<h1 class="text-[100px] text-[#0ff123] font-bold">Hola Mundo</h1>
+  <p class="font-bold text-2xl text-amber-700">Parrafo</p>
+  <button class="bg-amber-700 py-2 px-4 rounded-2xl text-white/90 hover:bg-purple-500 hover:text-yellow-500">Ir a Google</button>
+  <div class="h-[300px] bg-gray-800 sm:bg-red-400 sm:text-yellow-400 md:bg-purple-400 lg:bg-blue-400">
+    Soy un div
+  </div>-->
+  <header class="w-full fixed h-20 bg-indigo-600 top-0 flex justify-between items-center px-10">
+    <p class="text-3xl font-bold text-white">LOGO</p>
+    <!-- MENU DESKTOP -->
+    <ul class="hidden sm:flex gap-6 justify-center items-center text-white">
+      <li>Home</li>
+      <li>Services</li>
+      <li>Contact</li>
+    </ul>
+    <!-- MENU MOBILE -->
+    <input type="checkbox" name="menu-mobile" id="menu-mobile" class="hidden peer/menu">
+    <label class="sm:hidden" for="menu-mobile">
+      menu
+    </label>
+    <aside class="fixed top-0 right-0 h-screen w-[250px] bg-indigo-400 translate-x-[250px] peer-checked/menu:translate-x-0 duration-300 z-20">
+      <label for="menu-mobile">X</label>
+    </aside>
+    <label class="absolute hidden top-0 right-0 w-full h-screen bg-black/55 z-10 peer-checked/menu:block" for="menu-mobile"></label>
+  </header>
+  <main class="h-screen bg-[linear-gradient(to_right,rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url('https://wallpapers.com/images/hd/futuristic-city-background-gfixge3n17657ygy.jpg')] bg-no-repeat bg-center bg-cover flex justify-center items-center">
+    <h1 class="text-4xl sm:text-6xl font-bold text-white">Mi titulo</h1>
+  </main>
+  <section class="container h-screen bg-indigo-700 mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center justify-center">
+      <div class="bg-yellow-400">1</div>
+      <div class="bg-orange-400">2</div>
+      <div class="bg-red-500">3</div>
+      <div class="bg-blue-500">4</div>
+      <div class="bg-blue-500">5</div>
+      <div class="bg-blue-500">6</div>
+      <div class="bg-blue-500">7</div>
+    </div>
+  </section>
+</body>
+</html>
