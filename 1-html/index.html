@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagina web</title>
+</head>
+<body>
+  <!-- ESTO ES UN COMENTARIO -->
+  <!-- 
+    ESTO ES UN COMENTARIO
+    DE VARIAS LINEAS
+  -->
+  <!-- ESTO ES OTRO COMENTARIO -->
+  
+  <a href="#parrafoEjemplo">Ir a la seccion ID y Clase</a>
+
+  <!-- Parrafo -->
+  <p>Esto es un parrafo :D</p>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi optio, fuga exercitationem nam eius illum perferendis voluptas nulla sequi rerum unde eos reprehenderit blanditiis saepe aut mollitia aperiam id sint.</p>
+
+  <!-- Titulares -->
+  <h1>Soy un titulo</h1>
+  <h2>Soy un subtitulo</h2>
+  <h3>Soy un subtitulo mas pequeno</h3>
+  <h4>Soy mas pequeno</h4>
+  <h5>Mucho mas pequeno</h5>
+  <h6>Muy muy pequeno</h6>
+
+  <!-- Imagen (en nuestra computadora) -->
+  <img src="images/conBotas.jpg" alt="Gato con botas" id="gato">
+  <img src="images/conBotas.jpg" alt="Gato con botas" width="500px" height="300px">
+
+  <!-- Imagen (Url, es decir que este en internet) -->
+  <img src="https://cards.algoreducation.com/_next/image?url=https%3A%2F%2Ffiles.algoreducation.com%2Fproduction-ts%2F__S3__9691abed-ff1f-4b6b-aa55-e8acbc7366bb&w=3840&q=75" alt="Paisaje">
+
+  <!-- Video (Youtube) iframe -->
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/DsvJ7iv_d7Y?si=Hw9FBl1vs5LcB2UO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+  <!-- Ubicacion de Google maps -->
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15864.474649226535!2d-62.85529538200375!3d6.248090644420146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8dc42b4a5be149dd%3A0x8898d3a383c753f7!2sWaka%20Wen%C3%A1!5e0!3m2!1ses-419!2sve!4v1741397525133!5m2!1ses-419!2sve" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+  <!-- Video (Desde nuestra computadora) -->
+  <video controls autoplay muted loop src="video/video.mp4"></video>
+
+  <!-- Listas -->
+  <!-- Lista organizada/ordenada -->
+  <ol>
+    <li>Tener todos los materiales</li>
+    <li>Hacer la mezcla</li>
+    <li>Cocinar la mezcla</li>
+  </ol>
+
+  <!-- Lista no organizada/ordenada-->
+  <ul>
+    <li>Javascript</li>
+    <li>Python</li>
+    <li>Php</li>
+  </ul>
+
+  <!-- Tabla -->
+  <table>
+    <!-- Cabecera de la tabla -->
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Edad</th>
+      </tr>
+    </thead>
+    <!-- Datos de la tabla -->
+    <!-- Esto representa una fila de datos-->
+    <tr>
+      <td>Jose</td>
+      <td>Perez</td>
+      <td>20</td>
+    </tr>
+    <!-- Esto representa otra fila de datos-->
+    <tr>
+      <td>Elimelech</td>
+      <td>Attale</td>
+      <td>21</td>
+    </tr>
+    <!-- Esto representa otra fila de datos-->
+    <tr>
+      <td>Hector</td>
+      <td>Jimenez</td>
+      <td>22</td>
+    </tr>
+  </table>
+
+  <!-- Boton -->
+  <button>Clic aqui</button>
+
+  <!-- Ancla (Link) -->
+  <a href="https://www.youtube.com/" target="_blank">Ir a Youtube</a>
+
+  <a href="https://www.google.com" target="_blank">
+    <button>Ir a Google</button>
+  </a>
+
+  <a href="pages/contacto.html">Contactanos</a>
+
+  <!-- Descargar archivo -->
+  <a href="images/conBotas.jpg" download="GatoConBotas.jpg">Descargar imagen</a>
+
+  <!-- ID y Clase -->
+  <p id="parrafoEjemplo">Soy un identificador</p>
+
+  <p class="rojo grande">Ejemplo de clase</p>
+  <p class="rojo grande">Ejemplo de clase 2</p>
+
+  <a href="#gato">Ir al gato</a>
+
+  <!-- Inputs (Entradas de datos) -->
+  <!-- Input de texto -->
+  <input type="text" placeholder="Escribe tu nombre" name="nombre" minlength="2" maxlength="20" value="Elimelech" readonly disabled>
+  <!-- Input de numero -->
+  <input type="number" name="edad" id="edad">
+  <!-- Input de Correo Electronico -->
+  <input type="email" name="correo" id="correo">
+  <!-- Input de Fecha -->
+  <input type="date" name="fecha" id="fecha" min="2003-01-01" max="2025-01-01">
+  <!-- Input de color -->
+  <input type="color" name="color" id="color">
+  <!-- Input Checkbox -->
+  <label for="terminos">
+    <input type="checkbox" name="terminos" id="terminos">
+    Aceptar los terminos y condiciones.
+  </label>
+  <!-- Input radio -->
+  <label for="bus">
+    <input type="radio" name="transporte" id="bus">
+    Bus
+  </label>
+
+  <label for="car">
+    <input type="radio" name="transporte" id="car">
+    Car
+  </label>
+  <br>
+  <!-- Input de botones -->
+  <input type="button" value="Enviar">
+  <input type="submit" value="Enviar Datos">
+  <input type="reset" value="Resetear">
+
+  <!-- Salto de linea -->
+  <br>
+  <br>
+  <br>
+
+  <!-- Formulario -->
+  <form action="">
+    <!-- Nombre -->
+    <label for="name">Nombre</label>
+    <input type="text" name="name" id="name">
+
+    <!-- Apellido -->
+    <label for="lastname">Apellido</label>
+    <input type="text" name="lastname" id="lastname">
+
+    <!-- Correo electronico -->
+    <label for="email">Correo electronico</label>
+    <input type="email" name="email" id="email">
+
+    <!-- Input de seleccion -->
+    <label for="pais">Pais</label>
+    <select name="pais" id="pais">
+      <option value="" selected disabled>Seleccione un pais</option>
+      <option value="+58">Venezuela</option>
+      <option value="">Colombia</option>
+      <option value="" >Italia</option>
+      <option value="">Argentina</option>
+    </select>
+
+    <!-- Textarea -->
+    <label for="descripcion">Descripcion</label>
+    <textarea name="descripcion" id="descripcion" rows="5" cols="5"></textarea>
+
+    <!-- Input oculto -->
+    <input type="hidden" name="oculto" value="loquesea">
+    <br>
+    <!-- Input de contrasena -->
+    <label for="password">Contrasena</label>
+    <input type="password" name="password" id="password">
+    <!-- Boton para enviar el formulario -->
+    <input type="submit" value="Enviar datos">
+  </form>
+
+  <!-- div (division, caja, contenedor, cajita) -->
+  <div style="background-color:gray;">
+    <h3>Soy un div</h3>
+    <p>Hola desde el div</p>
+  </div>
+
+  <!-- Span -->
+  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit sit exercitationem commodi? <span style="color:blue;">Perferendis recusandae fugit</span>, quae ab, unde ratione ipsam modi corporis fugiat necessitatibus fuga saepe autem, rerum in et?</p>
+
+  <!-- HTML SEMANTICO -->
+  <!-- Encabezado -->
+  <header></header>
+  <!-- Barra de navegacion -->
+  <nav></nav>
+  <!-- Contenido lateral -->
+  <aside></aside>
+  <!-- Contenido principal -->
+  <main>
+    <h1>Soy el titulo</h1>
+    <button>Conocer mas</button>
+  </main>
+  <!-- Articulo -->
+  <article></article>
+  <!-- Direccion -->
+  <address></address>
+  <!-- Secciones -->
+  <section></section>
+  <!-- Pie de pagina -->
+  <footer></footer>
+</body>
+</html>
+
+<!--
+        EJERCICIO:
+        Crea una Pagina Web para un restaurante, esta debe llevar lo siguiente:
+
+        1) Barra de Navegación (nav): Crea una barra de navegación en la parte superior del sitio. 
+        Esta barra debe incluir el logo del restaurante y un menú con tres opciones: "Inicio", "Comidas"
+        y "Contacto".
+
+        2) Contenido principal (main): Debe llevar un texto de bienvenida y una imagen del sitio.
+
+        3) Sección de comidas (section): Crea una sección titulada "Comidas" utilizando la etiqueta 
+        <section>. En esta parte del sitio web, presenta una lista de las comidas más destacadas del
+            restaurante, junto con una foto atractiva de cada plato.
+
+        4) Pie de pagina (footer): En el pie de página, agrega un formulario que solicite al
+        usuario ingresar su "Nombre", "Apellido" y "Correo Electrónico". Este formulario permitirá
+        que los clientes se suscriban para recibir promociones y actualizaciones del restaurante. 
+        Además, coloca los enlaces a las redes sociales del restaurante para que los visitantes
+        puedan seguir las últimas noticias y ofertas.
+
+        Nota: El nombre del restaurante lo eligen ustedes al igual que el logo.
+
+-->
