@@ -623,6 +623,14 @@ for (let compra of lista_de_compras) {
     categoria: "juegos de video"
     juegos: ["fortnite", "call of duty", "fifa"]
   }]
+
+  for (let tipos = 0; tipos < tipos_de_juegos.length; tipos++) {
+  console.log(Categorias: ${tipos_de_juegos[tipos].categoria});
+  for (let juego = 0; juego < tipos_de_juegos[tipos].juegos.length; juego++){
+     console.log(Juegos: ${tipos_de_juegos[tipos].juegos[juego]});
+  }
+  console.log("\n");
+}
 */
 
 
