@@ -1,0 +1,34 @@
+  #carrusel {
+      width:300px;
+      height:200px;
+      overflow: hidden;
+      position: relative;
+      margin: auto;
+      border-radius: 0.5rem;
+    }
+
+    #carrusel img {
+      width: 100%;
+      height: 100%;
+      display: none;
+    }
+
+    #carrusel img.activa {
+      display: block;
+    }
+
+    .botones {
+      text-align:center;
+      margin-top: 20px;
+    }
+
+    button {
+    background-color: #21a764;
+    padding: 1rem 2.5rem;
+    color: white;
+    border: 0;
+    font-size: 1rem;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    align-content: center;
+    border-radius: 1rem;
+    }

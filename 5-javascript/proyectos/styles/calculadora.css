@@ -1,0 +1,81 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+body{
+    display: grid;
+    justify-content: center;
+    background-color: #fcfcfc;
+}
+
+section {
+    text-align: center;
+    font-size: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.calculadora{
+    background-color: #ccc5b7;
+    color: white;
+    width: 300px;
+    max-width: 100%;
+    padding: 1rem;
+    border-radius: 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .5rem;
+    
+}
+
+.pantalla{
+    grid-column: 1 / 5;
+    background-color: #22222244;
+    font-size: 1.8rem;
+    text-align: right;
+    height: 3.5rem;
+    border-radius: .5rem;
+    margin-bottom: 1rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    color: black;
+}
+
+.boton{
+    background-color: #2328dd;
+    padding: 0.5rem 0.5rem;
+    color: white;
+    border: 0;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    border-radius: 1rem;
+}
+
+.boton:hover{
+    background-color: rgb(255, 255, 255);
+    font-weight: bold;
+    color: rgb(184, 22, 22);
+
+}
+
+#igual {
+    background-color: #c419be;
+}
+
+#borrar, #limpiar {
+    background-color:forestgreen;
+}
+
+
+
+#igual:hover{
+    background-color: rgb(255, 255, 255);
+    font-weight: bold;
+    color: rgb(18, 100, 22);
+
+}
