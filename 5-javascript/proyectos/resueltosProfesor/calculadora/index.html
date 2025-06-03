@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="flex items-center justify-center min-h-screen bg-gray-400">
+    <div class="bg-gray-600 p-6 rounded-lg shadow-lg flex flex-col gap-4">
+      <input class="bg-white rounded-lg px-4 py-2" type="text" id="display" disabled />
+      <div class="grid grid-cols-5 gap-2">
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="appendToDisplay('1')">1</button>
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="appendToDisplay('2')">2</button>
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="appendToDisplay('3')">3</button>
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="appendToDisplay('+')">+</button>
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="appendToDisplay('(')">(</button>
+      </div>
+      <div class="grid grid-cols-5 gap-2">
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="appendToDisplay('4')">4</button>
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="appendToDisplay('5')">5</button>
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="appendToDisplay('6')">6</button>
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="appendToDisplay('-')">-</button>
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="appendToDisplay(')')">)</button>
+      </div>
+      <div class="grid grid-cols-5 gap-2">
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="appendToDisplay('7')">7</button>
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="appendToDisplay('8')">8</button>
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="appendToDisplay('9')">9</button>
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="appendToDisplay('*')">*</button>
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="appendToDisplay('**')">**</button>
+      </div>
+      <div class="grid grid-cols-5 gap-2">
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="deleteLastElement()">C</button>
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="appendToDisplay('0')">0</button>
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="clearDisplay()">CA</button>
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="appendToDisplay('/')">/</button>
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="appendToDisplay('%')">%</button>
+      </div>
+      <div class="grid grid-cols-5 gap-2">
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer col-span-4" onclick="calculateResult()">=</button>
+        <button class="bg-slate-400 rounded-lg px-4 py-2 cursor-pointer" onclick="appendToDisplay('.')">.</button>
+      </div>
+    </div>
+    <script src="./calculadora.js"></script>
+  </body>
+</html>
