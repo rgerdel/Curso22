@@ -10,7 +10,7 @@
 	font-family: 'Montserrat', sans-serif;
 }
 
-  .character {  
+.character {  
     padding: 10px;
     margin: 10px;
     margin-top: 8px;
@@ -26,13 +26,14 @@
     color: white;
     padding: 10px;
     border-radius: 6px;
-    text-align: left;
+    text-align: left; 
     }
 
 
 .character img {
     width: 100%;
     border-radius: 8px;
+    align-content: center;
 }
 
 button {
@@ -47,6 +48,8 @@ button {
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
 }
+
+
 
 
 

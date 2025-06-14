@@ -11,16 +11,17 @@
     
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		<form action="#">
+		<form id="formulario_registro">
 			<h1>Crear cuenta</h1>
             <img src="./img/rick.jpg" width="50px">
             <img src="./img/logo.png" width="100px">
-			<input type="text" placeholder="Usuario" />
-			<input type="email" placeholder="Correo electronico" />
-			<input type="password" placeholder="Contraseña" />
+			<input id="usuario" name="usuario" type="text" placeholder="Usuario">
+			<input id="email" name="email" type="email" placeholder="Correo electronico" />
+			<input id="password" name="password" type="password" placeholder="Contraseña"/>
             <p></p>
-			<button>Registrarse</button>
+			<button type="submit" onclick="validar_datos()">Registrarse</button>
 		</form>
+		<div id="resultado"></div>
 	</div>
 	<div class="form-container sign-in-container">
 		<form action="#">
@@ -50,7 +51,7 @@
 	</div>
 </div>
 
-
+<script src="./auth.js"></script>
 <script src="./slider.js"></script>
 </body>
 </html>
