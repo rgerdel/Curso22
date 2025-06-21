@@ -15,13 +15,14 @@
 			<h1>Crear cuenta</h1>
             <img src="./img/rick.jpg" width="50px">
             <img src="./img/logo.png" width="100px">
-			<input id="usuario" name="usuario" type="text" placeholder="Usuario">
-			<input id="email" name="email" type="email" placeholder="Correo electronico" />
-			<input id="password" name="password" type="password" placeholder="Contraseña"/>
-            <p></p>
-			<button type="submit" onclick="validar_datos()">Registrarse</button>
+			<input id="usuario" name="usuario" type="text" placeholder="Usuario" required>
+			<input id="email" name="email" type="email" placeholder="Correo electronico" required />
+			<input id="password" name="password" type="password" placeholder="Contraseña" required />
+           
+			<div id="resultado"></div>
+			<button type="submit" onclick="registrar_usuario()">Registrarse</button>
 		</form>
-		<div id="resultado"></div>
+		
 	</div>
 	<div class="form-container sign-in-container">
 		<form action="#">
@@ -29,10 +30,10 @@
             <img src="./img/morty.jpg" width="50px">
             <img src="./img/logo.png" width="100px">
 			<span></span>
-			<input type="email" placeholder="Email" />
-			<input type="password" placeholder="Password" />
+			<input id="emailIS" name="emailIS" type="email" placeholder="Email" />
+			<input id="passwordIS" name="passwordIS" type="password" placeholder="Password" />
 			<a href="#">Olvido su contraseña?</a>
-			<button>Iniciar sesion</button>
+			<button type="submit" onclick="iniciarSesion()">Iniciar sesion</button>
 		</form>
 	</div>
 	<div class="overlay-container">

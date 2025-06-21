@@ -113,7 +113,7 @@ body {
 
 .fullPageMenu .nav ul li:hover a {
     transform: translateY(-100%);
-    color: fff;
+    color: #fff;
 }
 
 .menuicon {

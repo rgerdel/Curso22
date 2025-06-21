@@ -7,6 +7,7 @@
     <title>Rick and Morty</title>
 </head>
 <body>
+
 <div class="fullPageMenu" id="nav">
         <div class="banner">
             <img src="./img/1b05957d6427ee6b523b68917c18e6ef.jpg">
@@ -16,11 +17,20 @@
                 <li><a href="./characters.html" data-text="Rick&Morty">Personajes</a></li>
                 <li><a href="./favorites.html" data-text="Rick&Morty">Favoritos&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
                 <li><a href="#" data-text="Usuario">Perfil&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-                <li><a href="#" data-text="LogOut">Salir&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="" data-text="LogOut" onclick="salir_logout()">Salir&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                
             </ul>
-        </div>
+        </div>  
     </div>
     <span class="menuicon" id="toggle" onclick="menuToggle()"></span>
+
+    <div id="usuarioLogueado">    
+        <script>
+            let usuarioLogueado =   sessionStorage.getItem("usuario");
+            document.getElementById("usuarioLogueado").innerHTML = usuarioLogueado
+        </script>
+    </div>
 <script src="./menu.js"></script>
+<script src="./auth.js"></script>
 </body>
 </html>
