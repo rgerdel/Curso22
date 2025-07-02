@@ -1,3 +1,5 @@
+verificarSesion()
+
 const container = document.getElementById("favoritos-container");
 const favoritos = JSON.parse(localStorage.getItem("favoritoRickMorty")) || [];
 

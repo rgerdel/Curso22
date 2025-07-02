@@ -1,3 +1,5 @@
+verificarSesion()
+
 const track = document.getElementById("carousel-track");
 const btnPrev = document.getElementById("prev");
 const btnNext = document.getElementById("next");

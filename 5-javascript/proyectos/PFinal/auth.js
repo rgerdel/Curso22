@@ -151,3 +151,13 @@ function perfil(){
   let email = document.getElementById("usuarioLogueado").textContent;
   window.location.href = `profile.html?email=${email}`;
 }
+
+function verificarSesion (){
+    const emailSesion = sessionStorage.getItem("usuarioLogueado");
+
+  if (!emailSesion) {
+    alert("No hay un usuario conectado. Por favor, ingrese nuevamente");
+    window.location.href = "index.html";
+    return;
+  }
+}

@@ -1,3 +1,5 @@
+verificarSesion()
+
 function actualizarPerfil() {
   let usuario = document.getElementById("usuario").value;
   let email = document.getElementById("email").value;
@@ -18,13 +20,16 @@ function actualizarPerfil() {
   // Guardamos el nuevo perfil usando el email actual como key
   localStorage.setItem(`RRM-${registroObjeto.email}`, JSON.stringify(registroObjeto));
 
-  alert("Usuario actualizado con éxito");
-
   // Si se cambió el email, eliminamos el perfil anterior
   if (email.toLowerCase().trim() !== email2.toLowerCase().trim()) {
     localStorage.removeItem(`RRM-${email2.toLowerCase().trim()}`);
   }
+
+  alert("Usuario actualizado con éxito");
+  window.location.href = `menu.html?email=${email}`;
 }
+
+
 
 
 function traerDatos(){
