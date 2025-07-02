@@ -141,3 +141,8 @@ body {
         display: none;
     }
 }
+
+
+.ghost {
+  font-size: 0%;
+}

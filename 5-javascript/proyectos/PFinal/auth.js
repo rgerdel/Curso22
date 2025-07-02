@@ -1,24 +1,45 @@
- function registrar_usuario() {
-   //Paso los valores del formulario de registro
-   let usuario = document.getElementById("usuario").value;
-   let email = document.getElementById("email").value;
-   let password = document.getElementById("password").value;
-   console.log("prueba")   
-   console.log(usuario)
-   console.log(email)
-   console.log(password)
-   //let confirmPassword = document.getElementById("confirmPassword").value;
-   let usuarioRegex = /^[a-zA-Z0-9_-]{3,}$/;
-   let emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-   let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,20}$/;
-   //let usuarios = localStorage.getItem("usuarios") || [];
-   let error = true;
+// Esperar a que cargue la página por completo
+document.addEventListener('DOMContentLoaded', () =>
+{
 
-   console.log("prueba")   
-   console.log(usuario)
-   console.log(email)
-   console.log(password)
-   console.log(error)
+  // Manejar submit registro
+  document.getElementById('formulario_registro').addEventListener('submit', function(e) {
+    e.preventDefault();
+// evitar que el formulario recargue la página
+    registrar_usuario();
+  });
+
+  // Manejar submit inicio sesion
+  document.getElementById('formulario_inicio').addEventListener('submit', function(e) {
+    e.preventDefault();
+// evitar recarga
+    iniciarSesion();
+  });
+}); 
+ 
+ 
+ 
+ function registrar_usuario() {
+  //Paso los valores del formulario de registro
+  let usuario = document.getElementById("usuario").value;
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+  console.log("prueba")   
+  console.log(usuario)
+  console.log(email)
+  console.log(password)
+  //let confirmPassword = document.getElementById("confirmPassword").value;
+  let usuarioRegex = /^[a-zA-Z0-9_-]{3,}$/;
+  let emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,20}$/;
+  //let usuarios = localStorage.getItem("usuarios") || [];
+  let error = true;
+
+  //  console.log("prueba")   
+  //  console.log(usuario)
+  //  console.log(email)
+  //  console.log(password)
+  //  console.log(error)
    //Valido que el campo usuario no este el blanco
    if (usuario === "") {
       alert("El usuario no puede estar vacío.");
@@ -61,38 +82,72 @@ if (error) {
         password: password.trim(),
    };
    //Guardo los datos del registro en un array en el localstorage
-   let registroRickMorty = [];
+   //let registroRickMorty = [];
 
-    registroRickMorty.push(registroObjeto)
+    //registroRickMorty.push(registroObjeto)
     //Almacena los datos (key como llave unica, los datos tomados de registroObjeto)
-    localStorage.setItem(`RRM-${email.toLowerCase()}`, JSON.stringify(registroRickMorty));
+     localStorage.setItem(`RRM-${registroObjeto.email}`, JSON.stringify(registroObjeto));
     alert("Usuario registrado con éxito")
+    document.getElementById('formulario_registro').reset();
 }
 }
 
-function iniciarSesion(){
-   let email = document.getElementById("emailIS").value;
-   let password = document.getElementById("passwordIS").value;
-   let usuario = localStorage.getItem(`RRM-${email.toLowerCase()}`) || [];
-   usuario = JSON.parse(usuario);
-   let usuarioEncontrado = usuario.find(
-    usuario => usuario.email === email && usuario.password === password
-  );
-  
-  if (usuarioEncontrado) {
-      sessionStorage.setItem(`RRM-${email.toLowerCase()}`, email);
-      window.location.href = `menu.html?email=${email}`;
-  } else {
-      alert("Usuario y contraseña incorrrecto, favor verifique e intente nuevamente")
-  }   
-}
+function iniciarSesion() {
+  const email = document.getElementById("emailIS").value.trim().toLowerCase();
+  const password= document.getElementById("passwordIS").value.trim();
 
-function salir_logout() {
-  console.log(email)
-  if (!sessionStorage.getItem(`RRM-${email.toLowerCase()}`)) {
-    alert("No hay un usuario conectado.");
+  const usuarioStr = localStorage.getItem(`RRM-${email}`);
+  if (!usuarioStr) {
+    alert("Email o contraseña incorrectos");
     return;
   }
-  sessionStorage.removeItem(`RRM-${email.toLowerCase()}`);
+
+  const usuarioObj = JSON.parse(usuarioStr);
+
+  if (usuarioObj.password === password &&
+usuarioObj.email === email) {
+    sessionStorage.setItem("usuarioLogueado", email);
+    window.location.href = `menu.html?email=${encodeURIComponent(email)}`;
+  } else {
+    alert("Email o contraseña incorrectos");
+  }
+  document.getElementById('formulario_inicio').reset();
+}
+
+
+function salir_logout() {
+  // Obtener email que está guardado como valor bajo la clave fija "usuarioLogueado"
+  const emailSesion = sessionStorage.getItem("usuarioLogueado");
+
+  if (!emailSesion) {
+    alert("No hay un usuario conectado. Por favor, ingrese nuevamente");
+    window.location.href = "index.html";
+    return;
+  }
+
+  // Limpiar la sesión
+  sessionStorage.removeItem("usuarioLogueado");
+  alert("Saliendo de Rick and Morty... ¡Adiós!");
   window.location.href = "index.html";
+}
+
+
+function personajes(){
+  let email = document.getElementById("usuarioLogueado").textContent;
+  window.location.href = `characters.html?email=${email}`;
+}
+
+function favoritos(){
+  let email = document.getElementById("usuarioLogueado").textContent;
+  window.location.href = `favorites.html?email=${email}`;
+}
+
+function menu(){
+  let email = document.getElementById("usuarioLogueado").textContent;
+  window.location.href = `menu.html?email=${email}`;
+}
+
+function perfil(){
+  let email = document.getElementById("usuarioLogueado").textContent;
+  window.location.href = `profile.html?email=${email}`;
 }

@@ -85,3 +85,9 @@ btnNext.addEventListener("click", () => {
 });
 
 cargarPersonajes();
+
+function menu(){
+  let email = document.getElementById("usuarioLogueado").textContent;
+  window.location.href = `menu.html?email=${email}`;
+}
+

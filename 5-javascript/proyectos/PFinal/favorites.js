@@ -1,5 +1,5 @@
- const container = document.getElementById("favoritos-container");
-    const favoritos = JSON.parse(localStorage.getItem("favoritoRickMorty")) || [];
+const container = document.getElementById("favoritos-container");
+const favoritos = JSON.parse(localStorage.getItem("favoritoRickMorty")) || [];
 
     async function cargarFavoritos() {
       if (favoritos.length === 0) {
@@ -30,3 +30,8 @@
     }
 
     cargarFavoritos();
+
+function menu(){
+  let email = document.getElementById("usuarioLogueado").textContent;
+  window.location.href = `menu.html?email=${email}`;
+}
