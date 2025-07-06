@@ -1,4 +1,4 @@
-verificarSesion()
+//verificarSesion()
 
 function actualizarPerfil() {
   let usuario = document.getElementById("usuario").value;
