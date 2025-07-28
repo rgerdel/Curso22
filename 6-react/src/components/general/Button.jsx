@@ -8,13 +8,18 @@
  * @author Juan Rodriguez
  * @returns
  */
-
-function Button({text, color="blue-600", textColor="white", extraClasses=""}){
-    return(
-        <button className={`bg-${color} text-${textColor} ${extraClasses}`}>
-            {text || "Click me"}
-        </button>
-    )
+function Button({
+  text = "Click me",
+  color = "blue-600",
+  textColor = "white",
+  extraClasses = "",
+}) {
+  return (
+    <button className={`bg-${color} text-${textColor} ${extraClasses}`}>
+      {text}
+    </button>
+  );
 }
 
-export default Button;
+
+export { Button };
