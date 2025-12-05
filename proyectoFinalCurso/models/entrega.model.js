@@ -14,11 +14,11 @@ import mongoosePaginate from 'mongoose-paginate-v2';
 
 const entregaSchema = new mongoose.Schema ({
     id_tarea :{
-        type: Number,
+        type: String,
         required: true,
     },
     id_estudiante: {
-        type: Number,
+        type: String,
         required: true,
     },
     fecha_entrega: {
@@ -52,6 +52,6 @@ const entregaSchema = new mongoose.Schema ({
 
     entregaSchema.plugin(mongoosePaginate);
     
-    export const entrega = mongoose.model('Entrega', entregaSchema);
+    export const Entrega = mongoose.model('Entrega', entregaSchema);
     
            

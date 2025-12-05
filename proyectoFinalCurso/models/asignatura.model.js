@@ -37,7 +37,7 @@ const asignaturaSchema = new mongoose.Schema({
     lowercase: true,
   },
   id_profesor: {
-    type: Number,
+    type: String,
     required: true,
     },
     grado: {

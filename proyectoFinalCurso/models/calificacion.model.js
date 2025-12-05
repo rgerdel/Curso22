@@ -11,7 +11,7 @@ import mongoosePaginate from 'mongoose-paginate-v2';
 */
 const calificacionSchema = new mongoose.Schema ({
     id_entrega: {
-        type: Number,
+        type: String,
         required: true
     },
     calificacion: {
@@ -32,4 +32,4 @@ const calificacionSchema = new mongoose.Schema ({
 
 calificacionSchema.plugin(mongoosePaginate);
 
-export const calificacion = mongoose.model('Calificacion', calificacionSchema);
+export const Calificacion = mongoose.model('Calificacion', calificacionSchema);

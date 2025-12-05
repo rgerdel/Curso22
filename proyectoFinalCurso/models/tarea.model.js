@@ -42,7 +42,7 @@ const tareaSchema = new mongoose.Schema({
         },
     },
     id_profesor: {
-        type: Number,
+        type: String,
         required: true,
     },
     id_asignatura: {

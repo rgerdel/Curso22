@@ -2,6 +2,11 @@ import express, { json } from 'express';
 import connection from './config/dbConnection.js';
 import usuarioRoutes from './routes/usuario.routes.js';
 import tareaRoutes from './routes/tarea.routes.js';
+import entregaRoutes from './routes/entrega.routes.js';
+import calificacionRoutes from './routes/calificacion.routes.js';
+import asignaturaRoutes from './routes/asignatura.routes.js';
+import gradoRoutes from './routes/grado.routes.js';
+import loginRoutes from './routes/login.routes.js';
 import cors from 'cors';
 
 const app = express();
@@ -28,9 +33,18 @@ app.get('/', (req, res) => {
   res.send('Bienvenido a la API con Express');
 });
 
-// Registrar las rutas de usuario y tarea
+// Registrar la ruta de inicio de sesión
+app.use('/api', loginRoutes);
+
+// Registrar las rutas de la API
 app.use('/api', usuarioRoutes);
 app.use('/api', tareaRoutes);
+app.use('/api', entregaRoutes);
+app.use('/api', calificacionRoutes);
+app.use('/api', asignaturaRoutes);
+app.use('/api', gradoRoutes);
+
+
 
 // Iniciar el servidor
 app.listen(port, () => {

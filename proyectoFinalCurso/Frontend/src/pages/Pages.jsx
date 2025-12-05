@@ -1,0 +1,20 @@
+//import { CrearUsuario } from './CrearUsuario.jsx'
+//import { ModificarUsuario } from './ModificarUsuario.jsx'
+import { ListarUsuarios } from './ListarUsuarios.jsx'
+import { Login } from './Login.jsx'
+import { EstudianteDashboard } from './EstudianteDashboard.jsx'
+import { Home } from './home.jsx'
+import { ProfesorDashboard } from './ProfesorDashboard.jsx'
+import { AdministradorDashboard } from './AdministradorDashboard.jsx' 
+import { Perfil } from './perfil.jsx'
+
+
+export { 
+    Home, 
+    Perfil,
+    ListarUsuarios, 
+    Login, 
+    EstudianteDashboard, 
+    ProfesorDashboard, 
+    AdministradorDashboard 
+}   

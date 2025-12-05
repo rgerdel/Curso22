@@ -43,6 +43,30 @@ export const updateAsignatura = async (req, res) => {
   }
 };  
 
+// obtener una asignatura por periodo, nombre o id
+export const getAsignaturaByQuery = async (req, res) => {
+  try {
+    const { periodo_escolar, nombre, id } = req.query;
+    const query = {};
+    if (periodo_escolar) {
+      query.periodo_escolar = periodo_escolar;
+    }
+    if (nombre) {
+      query.nombre = new RegExp(nombre, 'i');
+    }
+    if (id) {
+      query.codigo = new RegExp(id, 'i');
+    }
+    const asignatura = await Asignatura.find(query);
+    if (!asignatura) {
+      return res.status(404).json({ error: 'Asignatura no encontrada' });
+    }
+    res.status(200).json(asignatura);
+  } catch (error) {
+    res.status(400).json({ error: 'Error al obtener la asignatura', details: error.message });
+  }
+};  
+
 // eliminar una asignatura
 export const deleteAsignatura = async (req, res) => {
   try {

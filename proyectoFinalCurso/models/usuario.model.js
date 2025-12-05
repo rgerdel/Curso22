@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 import mongoosePaginate from 'mongoose-paginate-v2';
+
 
 /*
  * Definición del esquema y modelo de Usuario
@@ -70,6 +72,14 @@ const usuarioSchema = new mongoose.Schema({
   rol: { type: String, enum: ['admin', 'estudiante', 'profesor'], default: 'admin', lowercase: true },
 }, { timestamps: true });
 
+
+// Encriptar la contraseña antes de guardar
+/*usuarioSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});*/
 
 usuarioSchema.plugin(mongoosePaginate);
 
