@@ -36,7 +36,7 @@ function Login() {
       // Redirigir según el rol
       switch (data.rol) {
         case 'admin':
-          navigate(`/adminDashboard/${data._id}`);
+          navigate(`/administradorDashboard/${data._id}`);
           break;
         case 'estudiante':
           navigate(`/estudianteDashboard/${data._id}`);

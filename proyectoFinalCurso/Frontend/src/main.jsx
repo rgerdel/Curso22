@@ -15,15 +15,17 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-         <Route path="/home" element={< Home />} />
-       <Route path="/login" element={< Login />} />
-       <Route path="/perfil" element={< Perfil />} /> 
-        <Route path="/adminDashboard" element={< AdministradorDashboard />} /> 
+        <Route path="/home" element={< Home />} />
+        <Route path="/login" element={< Login />} />
+        <Route path="/perfil" element={< Perfil />} /> 
+        <Route path="/administradorDashboard/:id" element={< AdministradorDashboard />} />
+        <Route path="/administradorDashboard/:id/perfil" element={< Perfil />} /> 
         <Route path="/estudianteDashboard/:id" element={<EstudianteDashboard />} />
         <Route path="/estudianteDashboard/:id/perfil" element={<Perfil />} />
         <Route path="/profesorDashboard/:id" element={< ProfesorDashboard />} />
-        <Route path="/profesorDashboard/:id/perfil" element={< ProfesorDashboard />} /> 
-        <Route path="/usuarios" element={< ListarUsuarios />} />
+        <Route path="/profesorDashboard/:id/perfil" element={< Perfil />} /> 
+        <Route path="/usuarios/:id" element={< ListarUsuarios />} />
+        <Route path="/perfil/:id" element={<Perfil />} />
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </BrowserRouter>

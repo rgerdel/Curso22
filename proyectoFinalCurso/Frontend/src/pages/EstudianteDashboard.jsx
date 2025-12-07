@@ -1,38 +1,48 @@
-// src/pages/EstudianteDashboard.jsx
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../utils/auth';
 
 function EstudianteDashboard() {
 
-  const { id } = useParams();
-  const [usuario, setUsuario] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [usuario, setUsuario] = useState(null);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await fetch(`http://localhost:3000/api/usuario/${id}`);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
+    useEffect(() => {
+        const fetchUser = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/usuario/${id}`);
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setUsuario(data);
+            setLoading(false);
+        } catch (error) {
+            setError(error.message);
+            setLoading(false);
         }
-        const data = await response.json();
-        setUsuario(data);
-        setLoading(false);
-      } catch (error) {
-        setError(error.message);
-        setLoading(false);
-      }
+        };
+
+    fetchUser();
+  }, []);
+
+    const handleLogout = () => {
+      logout();
+      navigate('/login');
     };
 
-    if (id) {
-      fetchUser();
-    }
-  }, [id]);
+    const handleViewProfile = () => {
+    // Almacenar la URL actual antes de redirigir
+    const currentPath = window.location.pathname;
+    navigate(`/perfil/${id}?from=${encodeURIComponent(currentPath)}`);
+    };
 
-  if (loading) return <p>Cargando...</p>;
-  if (error) return <p>Error: {error}</p>;
-
+    if (loading) return <p>Cargando...</p>;
+    if (error) return <p>Error: {error}</p>;
 
   return (
  <div class="max-w-5xl mx-auto px-4 py-8">
@@ -42,8 +52,13 @@ function EstudianteDashboard() {
     </div>
     <div class="flex flex-col items-end space-y-2">
       <span class="font-semibold text-sm">{usuario?.nombre.toUpperCase() || ''} {usuario?.apellido.toUpperCase() || ''}</span>
-      <a href={`/estudianteDashboard/${usuario._id}/perfil`} class="text-blue-500 hover:text-blue-700 text-xs"><i class="fa-regular fa-address-card"></i> VER PERFIL</a>
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-xs">
+                 <button
+            className="text-blue-500 hover:text-blue-700 text-xs font-bold"
+            onClick={handleViewProfile}
+          >
+            <i className="fa-regular fa-address-card"></i> VER PERFIL
+          </button>
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-xs" onClick={handleLogout}>
         <i class="fa-solid fa-xmark"></i> CERRAR SESION
       </button>
 

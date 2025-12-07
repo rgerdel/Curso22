@@ -1,21 +1,60 @@
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../utils/auth';
+import Header from '../components/Header.jsx';
+
 function AdministradorDashboard() {
+
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [usuario, setUsuario] = useState(null);
+    const [usuarioActual, setUsuarioActual] = useState(null); // Estado para el usuario actual
+
+      useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/usuario/${id}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setUsuarioActual(data); // Actualizar el estado del usuario actual
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, [id]);
+
+
+
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
+    const handleViewProfile = () => {
+    // Almacenar la URL actual antes de redirigir
+    const currentPath = window.location.pathname;
+    navigate(`/perfil/${id}?from=${encodeURIComponent(currentPath)}`);
+    };
+
+  if (loading) return <p>Cargando...</p>;
+  if (error) return <p>Error: {error}</p>;
+
   return (
 <div class="max-w-5xl mx-auto px-4 py-8">
-    <div class="px-4 py-5 border border-gray-200 flex items-center justify-between">
-        <div class="flex items-center">
-            <span class="text-2xl font-bold">SISTEMA DE GESTION ESTUDIANTIL</span>
-        </div>
-        <div class="flex flex-col items-end space-y-2">
-            <span class="font-semibold text-sm">NOMBRE Y APELLIDO</span>
-            <a href="/perfil" class="text-blue-500 hover:text-blue-700 text-xs"><i class="fa-regular fa-address-card"></i> VER PERFIL</a>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-xs">
-                <i class="fa-solid fa-xmark"></i> CERRAR SESION
-            </button>
-        </div>
-    </div>
+    <Header usuario={usuarioActual} id={id} />
     <div class="px-4 py-5 border border-gray-200 flex items-center justify-between">
         <div class="flex items-center space-x-2 text-sm font-bold">
-            Panel del Administrador
+            Panel del {usuario?.rol.toUpperCase() || ''}
         </div>
         <div class="flex items-center space-x-4 font-bold text-sm">
             BIENVENIDO 
@@ -28,7 +67,7 @@ function AdministradorDashboard() {
                 <br></br>Registra y administra usuarios del sistema.</p>
             <br></br>
             <p class="mb-20 relative">
-                <a href="/usuarios" class="bg-blue-500 hover:bg-blue-700 text-white  py-1 px-2 rounded text-xs absolute bottom--10 right-0 mb-4 mr-4">
+                <a href={`/usuarios/${id}`} class="bg-blue-500 hover:bg-blue-700 text-white  py-1 px-2 rounded text-xs absolute bottom--10 right-0 mb-4 mr-4">
                     <i class="fa-solid fa-circle-check"></i> ENTRAR
                 </a>
             </p>
