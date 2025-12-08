@@ -1,161 +1,158 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import Modal from '../components/Modal';
+import '../components/styles.css';
 
-const ActualizarUsuario = ({ isOpen, onRequestClose, usuario, onUpdate }) => {
+function ActualizarUsuario() {
+  const { id } = useParams();
+  const location = useLocation();
+  const currentUserId = new URLSearchParams(location.search).get('currentUserId'); // ID del usuario actual
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    nombre: '',
-    apellido: '',
-    email: '',
-    password: '',
-    rol: '',
-  });
+  const [usuario, setUsuario] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-useEffect(() => {
-  if (usuario) {
-    setFormData({
-      nombre: usuario.nombre || '',
-      apellido: usuario.apellido || '',
-      email: usuario.email || '',
-      password: usuario.password || '',
-      rol: usuario.rol || '',
-    });
-  } else {
-    console.error("Usuario no definido");
-  }
-}, [usuario]);
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/usuario/${id}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setUsuario(data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
 
-if (!usuario) {
-  return null;
-}
+    fetchUser();
+  }, [id]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setUsuario({ ...usuario, [name]: value });
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await fetch(`http://localhost:3000/api/usuario/${usuario.id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
+    e.preventDefault();
+    try {
+      const response = await fetch(`http://localhost:3000/api/usuario/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(usuario),
+      });
 
-    if (!response.ok) {
-      const errorData = await response.json(); // Obtener los detalles del error
-      console.error("Error de la API:", errorData);
-      throw new Error('Network response was not ok');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const updatedUser = await response.json();
+      navigate(`/usuarios/${currentUserId}`); // Redirigir a la lista de usuarios con el ID del usuario actualr
+    } catch (error) {
+      console.error("Error al actualizar el usuario:", error);
+      setError(error);
     }
+  };
 
-    const data = await response.json();
-    console.log("Datos actualizados desde la API:", data); // Verificar la respuesta de la API
-    onUpdate(data); // Llamar a la función de actualización del padre
-    onRequestClose(); // Cerrar el modal
-  } catch (error) {
-    console.error("Error al actualizar el usuario:", error);
-  }
-};
-
-  if (!isOpen) return null;
+  if (loading) return <div className="text-center text-gray-600">Cargando...</div>;
+  if (!usuario) return <div className="text-center text-gray-600">Usuario no encontrado</div>;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+    
+    <div className="max-w-sm mx-auto px-4 py-0">
+      <div className="px-4 py-5 border border-gray-300 bg-gray-300 flex items-center justify-between">
+        <h2 className="text-2xl font-bold font-center">Actualizar Usuario</h2>
+      </div>
+      <div className="bg-white shadow-md rounded my-6 p-6">
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2 text-sm" htmlFor="nombre">
+            <label className="block text-gray-700 font-bold mb-2 text-xs" htmlFor="nombre">
               Nombre:
             </label>
             <input
-              className="w-full p-2 border border-gray-300 rounded text-sm"
+              className="w-full p-2 border border-gray-300 rounded text-xs"
               type="text"
               id="nombre"
               name="nombre"
-              value={formData.nombre}
+              value={usuario.nombre.toUpperCase()}
               onChange={handleInputChange}
               placeholder="Nombre"
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2 text-sm" htmlFor="apellido">
+            <label className="block text-gray-700 font-bold mb-2 text-xs" htmlFor="apellido">
               Apellido:
             </label>
             <input
-              className="w-full p-2 border border-gray-300 rounded text-sm"
+              className="w-full p-2 border border-gray-300 rounded text-xs"
               type="text"
               id="apellido"
               name="apellido"
-              value={formData.apellido}
+              value={usuario.apellido.toUpperCase()}
               onChange={handleInputChange}
               placeholder="Apellido"
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2 text-sm" htmlFor="email">
-              Email:
+            <label className="block text-gray-700 font-bold mb-2 text-xs" htmlFor="email">
+              Correo Electrónico:
             </label>
             <input
-              className="w-full p-2 border border-gray-300 rounded text-sm"
+              className="w-full p-2 border border-gray-300 rounded text-xs"
               type="email"
               id="email"
               name="email"
-              value={formData.email}
+              value={usuario.email.toUpperCase()}
               onChange={handleInputChange}
               placeholder="Email"
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2 text-sm" htmlFor="password">
+            <label className="block text-gray-700 font-bold mb-2 text-xs" htmlFor="password">
               Contraseña:
             </label>
             <input
-              className="w-full p-2 border border-gray-300 rounded text-sm"
-              type="password"
+              className="w-full p-2 border border-gray-300 rounded text-xs"
+              type=""
               id="password"
               name="password"
-              value={formData.password}
+              value={usuario.password}
               onChange={handleInputChange}
               placeholder="Contraseña"
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2 text-sm" htmlFor="rol">
+            <label className="block text-gray-700 font-bold mb-2 text-xs" htmlFor="rol">
               Rol:
             </label>
             <select
-              className="w-full p-2 border border-gray-300 rounded text-sm"
+              className="w-full p-2 border border-gray-300 rounded text-xs"
               id="rol"
               name="rol"
-              value={formData.rol}
+              value={usuario.rol}
               onChange={handleInputChange}
             >
-              <option value="estudiante">Estudiante</option>
-              <option value="profesor">Profesor</option>
-              <option value="admin">Administrador</option>
+              <option value="estudiante">ESTUDIANTE</option>
+              <option value="profesor">PROFESOR</option>
+              <option value="admin">ADMINISTRADOR</option>
             </select>
           </div>
-          <div className="flex justify-end">
+          <div className="flex justify-center">
             <button
-              className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 align-center"
-              type="submit"
-            >
-              <i className="fa-solid fa-user-plus mr-2"></i> Actualizar
-            </button>
-            <button
-              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 ml-2"
-              onClick={onRequestClose}
-            >
-              Cancelar
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 align-center"
+              type="submit">
+              <i className="fa-solid fa-user-pen"></i> Actualizar
             </button>
           </div>
         </form>
       </div>
     </div>
   );
-};
+}
 
-export default ActualizarUsuario;
+export { ActualizarUsuario }

@@ -8,6 +8,7 @@ import { Home } from './pages/Pages.jsx'
 import { ProfesorDashboard } from './pages/Pages.jsx'
 import { AdministradorDashboard } from './pages/Pages.jsx'
 import { Perfil } from './pages/Pages.jsx'
+import { ActualizarUsuario } from './pages/Pages.jsx'
 
          
 
@@ -20,6 +21,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/perfil" element={< Perfil />} /> 
         <Route path="/administradorDashboard/:id" element={< AdministradorDashboard />} />
         <Route path="/administradorDashboard/:id/perfil" element={< Perfil />} /> 
+        <Route path="/ActualizarUsuario/:id" element={< ActualizarUsuario />} /> 
         <Route path="/estudianteDashboard/:id" element={<EstudianteDashboard />} />
         <Route path="/estudianteDashboard/:id/perfil" element={<Perfil />} />
         <Route path="/profesorDashboard/:id" element={< ProfesorDashboard />} />

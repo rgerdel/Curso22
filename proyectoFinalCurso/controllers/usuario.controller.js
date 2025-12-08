@@ -21,8 +21,15 @@ export const createUser = async (req, res) => {
 // traer todos los usuarios
 export const getAllUsers = async (req, res) => {
   try { 
-    // Excluir usuarios eliminados si se utiliza soft delete
-    const usuarios = await Usuario.find({ eliminado: false });
+    // Obtener el parámetro de consulta 'eliminado'
+    const { eliminado } = req.query;
+
+    let query = {};
+    if (eliminado !== undefined) {
+      query.eliminado = eliminado === 'true';
+    }
+
+    const usuarios = await Usuario.find(query);
     res.status(200).json(usuarios);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener los usuarios', details: error.message });

@@ -5,6 +5,7 @@ import { Home } from './home.jsx'
 import { ProfesorDashboard } from './ProfesorDashboard.jsx'
 import { AdministradorDashboard } from './AdministradorDashboard.jsx' 
 import { Perfil } from './perfil.jsx'
+import { ActualizarUsuario } from './ActualizarUsuario.jsx'
 
 
 
@@ -15,5 +16,6 @@ export {
     Login, 
     EstudianteDashboard, 
     ProfesorDashboard, 
-    AdministradorDashboard
+    AdministradorDashboard,
+    ActualizarUsuario
 }   
