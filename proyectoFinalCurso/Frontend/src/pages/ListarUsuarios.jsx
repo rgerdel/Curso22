@@ -128,7 +128,7 @@ function ListarUsuarios() {
           <p className="text-xs font-bold ">PANEL DEL {usuarioActual?.rol.toUpperCase() || '' }</p>
         </div>
         <div className="flex items-center space-x-4">
-          <button className="text-gray-800 font-bold hover:text-gray-800 text-xs">
+          <button className="text-gray-800 font-bold hover:text-gray-800 text-xs" onClick={() => navigate(`/administradorDashboard/${id}`)}>
             INICIO
           </button>
           <a href={`/usuarios/${id}`} className="text-gray-800 font-bold hover:text-gray-800 text-xs">USUARIO</a>

@@ -50,45 +50,45 @@ function AdministradorDashboard() {
   if (error) return <p>Error: {error}</p>;
 
   return (
-<div class="max-w-5xl mx-auto px-4 py-8">
+<div class="max-w-5xl mx-auto px-4 py-0">
     <Header usuario={usuarioActual} id={id} />
-    <div class="px-4 py-5 border border-gray-200 flex items-center justify-between">
-        <div class="flex items-center space-x-2 text-sm font-bold">
-            Panel del  {usuarioActual?.rol.toUpperCase() || ''}
+    <div class="px-4 py-5 border border-gray-300 flex items-center justify-between bg-gray-300">
+        <div class="flex items-center space-x-2 text-xs font-bold">
+            PANEL DEL  {usuarioActual?.rol.toUpperCase() || ''}
         </div>
         <div class="flex items-center space-x-4 font-bold text-sm">
             BIENVENIDO 
         </div>
     </div>
-    <div class="bg-gray-100 flex justify-between gap-4 px-2 py-8">
-        <div class="bg-gray-100 h-40 rounded-2xl border border-gray-400 p-4 text-center w-full sm:w-1/3 md:w-1/3 lg:w-1/3 relative">
+    <div class="bg-gray-100 flex justify-between gap-4 px-2 py-8 bg-gray-400">
+        <div class="bg-gray-200 h-40 rounded-2xl border border-gray-400 p-4 text-center w-full sm:w-1/3 md:w-1/3 lg:w-1/3 relative">
             <p className="text-1xl font-bold text-gray-800 uppercase">Gestion de Usuarios</p>
             <p className="text-sm text-justify">Administrar profesores y estudiantes. 
                 <br></br>Registra y administra usuarios del sistema.</p>
             <br></br>
             <p class="mb-20 relative">
-                <a href={`/usuarios/${id}`} class="bg-blue-500 hover:bg-blue-700 text-white  py-1 px-2 rounded text-xs absolute bottom--10 right-0 mb-4 mr-4">
-                    <i class="fa-solid fa-circle-check"></i> ENTRAR
+                <a href={`/usuarios/${id}`} class="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-2 rounded text-xs absolute bottom--10 right-0 mb-4 mr-4 w-20 h-8">
+                    <i class="fa-solid fa-circle-check"></i> Entrar
                 </a>
             </p>
         </div>
-        <div class="bg-gray-100 h-40 rounded-2xl border border-gray-400 p-4 text-center w-full sm:w-1/3 md:w-1/3 lg:w-1/3 relative">
+        <div class="bg-gray-200 h-40 rounded-2xl border border-gray-400 p-4 text-center w-full sm:w-1/3 md:w-1/3 lg:w-1/3 relative">
             <p className="text-1xl font-bold text-gray-800 uppercase">Gestion de Materias</p>
             <p className="text-sm text-justify">Administrar asignaturas.<br></br> Crea y asigna materias a profesores.</p>
             <br></br>
             <p class="mb-20 relative">
-                <a href="/login" class="bg-blue-500 hover:bg-blue-700 text-white  py-1 px-2 rounded text-xs absolute bottom--10 right-0 mb-4 mr-4">
-                    <i class="fa-solid fa-circle-check"></i> ENTRAR
+                <a href="/login" class="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-2 rounded text-xs absolute bottom--10 right-0 mb-4 mr-4 w-20 h-8">
+                    <i class="fa-solid fa-circle-check"></i> Entrar
                 </a>
             </p>
         </div>
-        <div class="bg-gray-100 h-40 rounded-2xl border border-gray-400 p-4 text-center w-full sm:w-1/3 md:w-1/3 lg:w-1/3">
+        <div class="bg-gray-200 h-40 rounded-2xl border border-gray-400 p-4 text-center w-full sm:w-1/3 md:w-1/3 lg:w-1/3">
             <p className="text-1xl font-bold text-gray-800 uppercase">Gestion de Grados</p>
             <p className="text-sm text-justify">Administrar niveles académicos.<br></br> Organiza estudiantes por grados.</p>
             <br></br>
             <p class="mb-20 relative">
-                <a href="/login" class="bg-blue-500 hover:bg-blue-700 text-white  py-1 px-2 rounded text-xs absolute bottom--10 right-0 mb-4 mr-4">
-                    <i class="fa-solid fa-circle-check"></i> ENTRAR
+                <a href="/login" class="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-2 rounded text-xs absolute bottom--10 right-0 mb-4 mr-4 w-20 h-8">
+                    <i class="fa-solid fa-circle-check"></i> Entrar
                 </a>
             </p>
         </div>
