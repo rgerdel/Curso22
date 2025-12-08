@@ -54,7 +54,7 @@ function AdministradorDashboard() {
     <Header usuario={usuarioActual} id={id} />
     <div class="px-4 py-5 border border-gray-200 flex items-center justify-between">
         <div class="flex items-center space-x-2 text-sm font-bold">
-            Panel del {usuario?.rol.toUpperCase() || ''}
+            Panel del  {usuarioActual?.rol.toUpperCase() || ''}
         </div>
         <div class="flex items-center space-x-4 font-bold text-sm">
             BIENVENIDO 

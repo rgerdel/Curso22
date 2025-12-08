@@ -92,6 +92,10 @@ function ListarUsuarios() {
     }
   };
 
+    const handleInicioClick = () => {
+    navigate(`/administradorDashboard/${id}`);
+  };
+
   if (loading) return <div className="text-center text-gray-600">Cargando...</div>;
 
   return (
@@ -99,11 +103,13 @@ function ListarUsuarios() {
       <Header usuario={usuarioActual} id={id} />
       <div className="px-4 py-5 border border-gray-200 flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <a href="/regresar" className="text-blue-500 hover:text-blue-700 text-xs">REGRESAR</a>
+          <p className="text-sm font-bold">Panel del {usuarioActual?.rol.toUpperCase() || ''}</p>
         </div>
         <div className="flex items-center space-x-4">
-          <a href="/inicio" className="text-gray-600 hover:text-gray-800 text-xs">INICIO</a>
-          <a href="/usuario" className="text-gray-600 hover:text-gray-800 text-xs">USUARIO</a>
+          <button className="text-gray-600 hover:text-gray-800 text-xs" onClick={handleInicioClick}>
+          INICIO
+        </button>
+          <a href={`/usuarios/${id}`}  className="text-gray-600 hover:text-gray-800 text-xs">USUARIO</a>
           <a href="/materias" className="text-gray-600 hover:text-gray-800 text-xs">MATERIAS</a>
           <a href="/grados" className="text-gray-600 hover:text-gray-800 text-xs">GRADOS</a>
         </div>

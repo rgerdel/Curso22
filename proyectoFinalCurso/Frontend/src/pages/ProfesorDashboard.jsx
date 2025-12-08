@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../utils/auth';
+import Header from '../components/Header.jsx';
 
 function ProfesorDashboard() {
 
@@ -10,25 +11,27 @@ function ProfesorDashboard() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [usuario, setUsuario] = useState(null);
+    const [usuarioActual, setUsuarioActual] = useState(null); // Estado para el usuario actual
 
-    useEffect(() => {
-        const fetchUser = async () => {
-        try {
-            const response = await fetch(`http://localhost:3000/api/usuario/${id}`);
-            if (!response.ok) {
-            throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            setUsuario(data);
-            setLoading(false);
-        } catch (error) {
-            setError(error.message);
-            setLoading(false);
+useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/usuario/${id}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
         }
-        };
+        const data = await response.json();
+        setUsuarioActual(data); // Actualizar el estado del usuario actual
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
 
     fetchUser();
-  }, []);
+  }, [id]);
+
 
   const handleLogout = () => {
     logout();
@@ -39,11 +42,10 @@ function ProfesorDashboard() {
     // Almacenar la URL actual antes de redirigir
     const currentPath = window.location.pathname;
     navigate(`/perfil/${id}?from=${encodeURIComponent(currentPath)}`);
-  };
+    };
 
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>Error: {error}</p>;
-
   return (
 <div class="max-w-5xl mx-auto px-4 py-8">
     <div class="px-4 py-5 border border-gray-200 flex items-center justify-between">
@@ -51,7 +53,7 @@ function ProfesorDashboard() {
             <span class="text-2xl font-bold">SISTEMA DE GESTION ESTUDIANTIL</span>
         </div>
         <div class="flex flex-col items-end space-y-2">
-            <span class="font-semibold text-lg">{usuario?.nombre.toUpperCase() || ''} {usuario?.apellido.toUpperCase() || ''}</span>
+            <span class="font-semibold text-lg">{usuarioActual?.nombre.toUpperCase() || ''} {usuarioActual?.apellido.toUpperCase() || ''}</span>
             <button
             className="text-blue-500 hover:text-blue-700 text-xs font-bold"
             onClick={handleViewProfile}
@@ -65,7 +67,7 @@ function ProfesorDashboard() {
     </div>
     <div class="px-4 py-5 border border-gray-200 flex items-center justify-between">
         <div class="flex items-center space-x-2 text-sm font-bold">
-            Panel del {usuario?.rol.toUpperCase() || ''}
+            Panel del  {usuarioActual?.rol.toUpperCase() || ''}
         </div>
         <div class="flex items-center space-x-4 font-bold text-sm">
             BIENVENIDO 
