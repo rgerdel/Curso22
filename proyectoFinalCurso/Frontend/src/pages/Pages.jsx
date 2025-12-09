@@ -6,6 +6,7 @@ import { ProfesorDashboard } from './ProfesorDashboard.jsx'
 import { AdministradorDashboard } from './AdministradorDashboard.jsx' 
 import { Perfil } from './perfil.jsx'
 import { ActualizarUsuario } from './ActualizarUsuario.jsx'
+import { ListarGrados } from './ListarGrados.jsx' 
 
 
 
@@ -17,5 +18,6 @@ export {
     EstudianteDashboard, 
     ProfesorDashboard, 
     AdministradorDashboard,
-    ActualizarUsuario
+    ActualizarUsuario,
+    ListarGrados
 }   

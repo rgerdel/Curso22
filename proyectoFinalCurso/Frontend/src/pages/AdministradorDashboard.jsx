@@ -77,7 +77,7 @@ function AdministradorDashboard() {
             <p className="text-sm text-justify">Administrar asignaturas.<br></br> Crea y asigna materias a profesores.</p>
             <br></br>
             <p class="mb-20 relative">
-                <a href="/login" class="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-2 rounded text-xs absolute bottom--10 right-0 mb-4 mr-4 w-20 h-8">
+                <a href={`/asignaturas/${id}`} class="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-2 rounded text-xs absolute bottom--10 right-0 mb-4 mr-4 w-20 h-8">
                     <i class="fa-solid fa-circle-check"></i> Entrar
                 </a>
             </p>

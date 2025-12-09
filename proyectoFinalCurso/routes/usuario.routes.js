@@ -7,7 +7,7 @@ const router = Router();
 router.get('/usuarios', getAllUsers);
 
 // Ruta traer un usuario por ID
-router.get('/usuario/:id', getUserById)
+router.get('/usuario/:id', getUserById);
 
 // Ruta para crear un nuevo usuario
 router.post('/usuario', createUser);

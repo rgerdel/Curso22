@@ -1,7 +1,7 @@
 .thick-line-through {
   text-decoration: line-through;
   text-decoration-thickness: 2px; /* Grosor del tachado */
-  background-color: #d35555; /* Fondo amarillo claro */
+  background-color: rgb(216, 31, 31); /* Fondo amarillo claro */
 
 }
 

@@ -97,7 +97,7 @@ function Perfil() {
   return (
     <Modal isOpen={isModalOpen} onRequestClose={handleCloseModal}>
       <div className="max-w-sm mx-auto px-4 py-8">
-        <div className="px-0 py-3 flex items-center justify-between">
+        <div className="px-0 py-4 flex items-center justify-between">
           <div className="flex items-center justify-center w-full">
             <span className="text-2xl font-bold font-center">PERFIL DE USUARIO</span>
           </div>
@@ -160,9 +160,14 @@ function Perfil() {
           </div>
           <div className="flex justify-center">
             <button
-              className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 mr-2 h-10 text-sm"
+              className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 mr-2 text-xs w-32 h-8"
               type="submit">
-              <i className="fa-solid fa-file-pen"></i> GUARDAR
+              <i className="fa-solid fa-file-pen"></i> Guardar
+            </button>
+            <button
+              className="bg-red-500 text-white text-xs px-4 py-2 rounded hover:bg-red-600 align-center w-32 h-8"
+              type="button" onClick={() => window.history.back()}>
+              <i class="fa-solid fa-ban"></i> Cancelar
             </button>
           </div>
         </form>

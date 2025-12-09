@@ -167,9 +167,9 @@ function ListarUsuarios() {
                   <td className={`px-4 py-1 text-xs ${usuario.eliminado ? 'thick-line-through' : ''}`}>{usuario.apellido.toUpperCase()}</td>
                   <td className={`px-4 py-1 text-xs ${usuario.eliminado ? 'thick-line-through' : ''}`}>{usuario.email.toUpperCase()}</td>
                   <td className="px-4 py-1 text-right">
-                    <button className="bg-blue-500 text-xs text-white px-2 py-1 rounded hover:bg-blue-600 mr-2 w-20 h-8 " onClick={() => navigate(`/ActualizarUsuario/${usuario._id}?currentUserId=${id}`)}><i className="fa-regular fa-pen-to-square"></i> Editar</button>
+                    <button className="bg-blue-500 text-xs text-white px-2 py-1 rounded hover:bg-blue-600 mr-2 w-24 h-8 " onClick={() => navigate(`/ActualizarUsuario/${usuario._id}?currentUserId=${id}`)}><i class="fa-solid fa-file-pen"></i> Actualizar</button>
                     <button
-                      className={`bg-${usuario.eliminado ? 'green' : 'red'}-500 text-xs text-white px-2 py-1 rounded hover:bg-${usuario.eliminado ? 'green' : 'red'}-600 w-20 h-8`}
+                      className={`bg-${usuario.eliminado ? 'green' : 'red'}-500 text-xs text-white px-2 py-1 rounded hover:bg-${usuario.eliminado ? 'green' : 'red'}-600 w-24 h-8`}
                       onClick={() => handleToggleUser(usuario._id)}
                     >
                       <i className={`fa-solid ${usuario.eliminado ? 'fa-check' : 'fa-eraser'}`}></i> {usuario.eliminado ? 'Activar' : 'Eliminar'}
@@ -277,12 +277,13 @@ function ListarUsuarios() {
                 <option value="admin">Administrador</option>
               </select>
             </div>
-            <div className="flex justify-center">
+            <div className="flex justify-center gap-2">
               <button
-                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 align-center"
+                className="bg-green-500 text-white text-xs px-4 py-2 rounded hover:bg-green-600 align-center w-32 h-8"
                 type="submit">
                 <i className="fa-solid fa-user-plus"></i>Agregar
               </button>
+
             </div>
           </form>
         </div>

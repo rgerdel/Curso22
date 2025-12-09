@@ -8,6 +8,7 @@ function Login() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [passwordVisible, setPasswordVisible] = useState(false); // Controla la visibilidad de la contraseña
 
   useEffect(() => {
     setError(null); // Limpiar errores al montar el componente
@@ -55,6 +56,11 @@ function Login() {
     });
   };
 
+
+    const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+    };
+
   return (
     <div className="bg-gray-200 min-h-screen">
       <div className="max-w-lg mx-auto mt-0 p-6 border border-gray-300 rounded-2xl bg-white">
@@ -79,14 +85,27 @@ function Login() {
             <label className="block text-gray-700 font-bold mb-2 text-sm" htmlFor="password">
               Contraseña:
             </label>
+            <div className="relative">
             <input
               className="w-full p-2 border border-gray-300 rounded text-sm"
-              type="password"
+              type={passwordVisible ? "text" : "password"}
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Introduzca su Contraseña"
             />
+              <button
+                type="button"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                onClick={togglePasswordVisibility}
+              >
+                {passwordVisible ? (
+                  <i className="fa-solid fa-eye"></i>
+                ) : (
+                  <i className="fa-solid fa-eye-slash"></i>
+                )}
+              </button>
+              </div>
           </div>
           <div className="flex justify-center">
             <button

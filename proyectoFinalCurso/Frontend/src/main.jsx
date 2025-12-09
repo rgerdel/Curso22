@@ -9,6 +9,7 @@ import { ProfesorDashboard } from './pages/Pages.jsx'
 import { AdministradorDashboard } from './pages/Pages.jsx'
 import { Perfil } from './pages/Pages.jsx'
 import { ActualizarUsuario } from './pages/Pages.jsx'
+import { ListarGrados } from './pages/Pages.jsx' 
 
          
 
@@ -28,6 +29,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/profesorDashboard/:id/perfil" element={< Perfil />} /> 
         <Route path="/usuarios/:id" element={< ListarUsuarios />} />
         <Route path="/perfil/:id" element={<Perfil />} />
+        <Route path="/grados/:id" element={< ListarGrados />} />
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </BrowserRouter>
