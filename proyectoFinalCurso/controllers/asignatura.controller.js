@@ -81,3 +81,34 @@ export const deleteAsignatura = async (req, res) => {
   }
 };
 
+export const getAsignaturasByGrado = async (req, res) => {
+  try {
+    const { id_grado } = req.params;
+    const asignaturas = await Asignatura.find({ grado: id_grado }); // Asumiendo que el campo en la BD se llama `grado`
+    res.status(200).json(asignaturas);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener las asignaturas por grado' });
+  }
+};
+
+export const getAsignaturasConDetalles = async (req, res) => {
+  try {
+    // Obtener todas las asignaturas
+    const asignaturas = await Asignatura.find().populate('id_profesor').populate('grado');
+
+    // Formatear los datos para incluir los nombres y apellidos de los profesores y los nombres de los grados
+    const asignaturasConDetalles = asignaturas.map(asignatura => ({
+      nombre: asignatura.nombre,
+      descripcion: asignatura.descripcion,
+      profesorNombre: asignatura.id_profesor.nombre,
+      profesorApellido: asignatura.id_profesor.apellido,
+      gradoNombre: asignatura.grado.nombre
+    }));
+
+    res.status(200).json(asignaturasConDetalles);
+  } catch (error) {
+    console.error("Error al obtener las asignaturas con detalles:", error);
+    res.status(500).json({ error: 'Error al obtener las asignaturas con detalles' });
+  }
+};
+
