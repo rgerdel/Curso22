@@ -21,12 +21,14 @@ export const createAsignatura = async (req, res) => {
 // obtener todas las asignaturas
 export const getAllAsignaturas = async (req, res) => {
   try {
-    const asignaturas = await Asignatura.find();
+    const asignaturas = await Asignatura.find()
+      .populate('id_profesor', 'nombre apellido') // Poblamos el campo id_profesor
+      .populate('grado', 'nombre'); // Poblamos el campo grado
     res.status(200).json(asignaturas);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener las asignaturas', details: error.message });
   }
-};  
+};
 
 // editar una asignatura
 export const updateAsignatura = async (req, res) => {

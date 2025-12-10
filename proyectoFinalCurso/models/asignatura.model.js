@@ -17,7 +17,7 @@ const asignaturaSchema = new mongoose.Schema({
   nombre: {
     type: String,
     required: true,
-    minlength: 3,
+    minlength: 2,
     maxlength: 50,
     trim: true,
     lowercase: true,
@@ -31,7 +31,7 @@ const asignaturaSchema = new mongoose.Schema({
   descripcion: {
     type: String,
     required: true,
-    minlength: 10,
+    minlength: 2,
     maxlength: 100,
     trim: true,
     lowercase: true,

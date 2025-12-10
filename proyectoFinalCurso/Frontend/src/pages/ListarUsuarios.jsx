@@ -281,7 +281,12 @@ function ListarUsuarios() {
               <button
                 className="bg-green-500 text-white text-xs px-4 py-2 rounded hover:bg-green-600 align-center w-32 h-8"
                 type="submit">
-                <i className="fa-solid fa-user-plus"></i>Agregar
+                <i className="fa-solid fa-user-plus"></i> Agregar
+              </button>
+              <button
+                className="bg-red-500 text-white text-xs px-4 py-2 rounded hover:bg-red-600 align-center w-32 h-8"
+                onClick={() => setIsModalOpen(false)}
+              > <i class="fa-solid fa-ban"></i> Cancelar
               </button>
 
             </div>
