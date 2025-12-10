@@ -55,10 +55,6 @@ function ListarAsignaturas() {
     fetchAsignaturas();
   }, []);
 
-  const handleToggleUser = (userId) => {
-    // Aquí puedes implementar la lógica para activar/desactivar un usuario
-    console.log(`Toggle user with ID: ${userId}`);
-  };
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-0">
