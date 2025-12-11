@@ -100,6 +100,7 @@ export const getAsignaturasConDetalles = async (req, res) => {
 
     // Formatear los datos para incluir los nombres y apellidos de los profesores y los nombres de los grados
     const asignaturasConDetalles = asignaturas.map(asignatura => ({
+      id: asignatura._id,
       nombre: asignatura.nombre,
       descripcion: asignatura.descripcion,
       profesorNombre: asignatura.id_profesor.nombre,
@@ -114,3 +115,15 @@ export const getAsignaturasConDetalles = async (req, res) => {
   }
 };
 
+export const getAsignaturaById = async (req, res) => {
+  try {
+    const { id } = req.params;  
+    const asignatura = await Asignatura.findById(id);
+    if (!asignatura) {
+      return res.status(404).json({ error: 'Asignatura no encontrada' });
+    }   
+    res.status(200).json(asignatura);
+  } catch (error) {
+    res.status(400).json({ error: 'Error al obtener la asignatura', details: error.message });
+  } 
+}

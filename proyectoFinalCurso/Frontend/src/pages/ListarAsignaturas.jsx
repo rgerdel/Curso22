@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { logout } from '../utils/auth';
 import Modal from '../components/Modal';
 import Header from '../components/Header';
 import '../components/styles.css';
+
 
 function ListarAsignaturas() {
   const { id } = useParams();
@@ -27,21 +27,21 @@ function ListarAsignaturas() {
 
   // Definición de fetchAsignaturas
   const fetchAsignaturas = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/api/asignaturas/detalles");
-      if (!response.ok) {
-        throw new Error(`Network response was not ok. Status: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log('Asignaturas con detalles:', data);
-      setAsignaturas(data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error al obtener las asignaturas con detalles:", error);
-      setError(error.message);
-      setLoading(false);
+  try {
+    const response = await fetch("http://localhost:3000/api/asignaturas/detalles");
+    if (!response.ok) {
+      throw new Error(`Network response was not ok. Status: ${response.status}`);
     }
-  };
+    const data = await response.json();
+    console.log('Asignaturas con detalles:', data); // Verifica los datos aquí
+    setAsignaturas(data);
+    setLoading(false);
+  } catch (error) {
+    console.error("Error al obtener las asignaturas con detalles:", error);
+    setError(error.message);
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -104,6 +104,7 @@ function ListarAsignaturas() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+          
           nombre: nuevaAsignatura.nombre,
           descripcion: nuevaAsignatura.descripcion,
           id_profesor: nuevaAsignatura.profesorId,
@@ -141,29 +142,40 @@ function ListarAsignaturas() {
     });
   };
 
-  const handleToggleUser = async (asignaturaId) => {
-    try {
-      const response = await fetch(`http://localhost:3000/api/asignaturas/${asignaturaId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ eliminado: !asignaturas.find(a => a._id === asignaturaId).eliminado })
-      });
-      if (!response.ok) {
-        throw new Error(`Network response was not ok. Status: ${response.status}`);
-      }
-      const updatedAsignaturas = asignaturas.map(a => {
-        if (a._id === asignaturaId) {
-          return { ...a, eliminado: !a.eliminado };
-        }
-        return a;
-      });
-      setAsignaturas(updatedAsignaturas);
-    } catch (error) {
-      console.error("Error al togglear el estado de la asignatura:", error);
+  const handleToggleAsignatura = async (asignaturaId) => {
+  try {
+    console.log('Actualizando asignatura con ID:', asignaturaId); // Verifica que el ID no sea undefined
+
+    const asignatura = asignaturas.find(a => a.id === asignaturaId);
+    if (!asignatura) {
+      throw new Error('Asignatura no encontrada');
     }
-  };
+
+    const response = await fetch(`http://localhost:3000/api/asignatura/${asignaturaId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ eliminado: !asignatura.eliminado })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Network response was not ok. Status: ${response.status}`);
+    }
+
+    const updatedAsignatura = await response.json();
+    const updatedAsignaturas = asignaturas.map(a => {
+      if (a.id === asignaturaId) {
+        return { ...a, eliminado: !a.eliminado };
+      }
+      return a;
+    });
+
+    setAsignaturas(updatedAsignaturas);
+  } catch (error) {
+    console.error("Error al togglear el estado de la asignatura:", error);
+  }
+};
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-0">
@@ -177,7 +189,7 @@ function ListarAsignaturas() {
             INICIO
           </button>
           <a href={`/usuarios/${id}`} className="text-gray-800 font-bold hover:text-gray-800 text-xs">USUARIO</a>
-          <a href={`/asignaturas/${id}`} className="text-gray-800 font-bold hover:text-gray-800 text-xs">MATERIAS</a>
+          <a href={`/asignaturas/${id}`} className="text-gray-800 font-bold hover:text-gray-800 text-xs">ASIGNATURAS</a>
           <a href="/grados" className="text-gray-800 font-bold hover:text-gray-800 text-xs">GRADOS</a>
         </div>
       </div>
@@ -205,33 +217,36 @@ function ListarAsignaturas() {
               </tr>
             </thead>
             <tbody className="bg-gray-200 divide-y divide-gray-200">
-              {asignaturas.map((asignatura, index) => (
-                <tr key={index} className="text-gray-700">
-                  <td className={`px-4 py-1 text-xs ${asignatura.eliminado ? 'line-through' : ''}`}>
-                    {asignatura.nombre.toUpperCase()}
-                  </td>
-                  <td className={`px-4 py-1 text-xs ${asignatura.eliminado ? 'line-through' : ''}`}>
-                    {asignatura.descripcion.toUpperCase()}
-                  </td>
-                  <td className={`px-4 py-1 text-xs ${asignatura.eliminado ? 'line-through' : ''}`}>
-                    {asignatura.profesorNombre ? `${asignatura.profesorNombre.toUpperCase()} ${asignatura.profesorApellido.toUpperCase()}` : 'Sin profesor'}
-                  </td>
-                  <td className={`px-4 py-1 text-xs ${asignatura.eliminado ? 'line-through' : ''}`}>
-                    {asignatura.gradoNombre ? asignatura.gradoNombre.toUpperCase() : `${asignatura.profesorNombre} ${asignatura.profesorApellido}`}
-                  </td>
-                  <td className="px-4 py-1 text-right">
-                    <button className="bg-blue-500 text-xs text-white px-2 py-1 rounded hover:bg-blue-600 mr-2 w-24 h-8 " onClick={() => navigate(`/ActualizarAsignatura/${asignatura._id}?currentUserId=${id}`)}>
-                      <i className="fa-solid fa-file-pen"></i> Actualizar
-                    </button>
-                    <button
-                      className={`bg-${asignatura.eliminado ? 'green' : 'red'}-500 text-xs text-white px-2 py-1 rounded hover:bg-${asignatura.eliminado ? 'green' : 'red'}-600 w-24 h-8`}
-                      onClick={() => handleToggleUser(asignatura._id)}
-                    >
-                      <i className={`fa-solid ${asignatura.eliminado ? 'fa-check' : 'fa-eraser'}`}></i> {asignatura.eliminado ? 'Activar' : 'Eliminar'}
-                    </button>
-                  </td>
-                </tr>
-              ))}
+             {asignaturas.map((asignatura, index) => (
+  <tr key={index} className="text-gray-700 ">
+    <td className={`px-4 py-1 text-xs ${asignatura.eliminado ? 'thick-line-through' : ''}`}>
+      {asignatura.nombre.toUpperCase()}
+    </td>
+    <td className={`px-4 py-1 text-xs ${asignatura.eliminado ? 'thick-line-through' : ''}`}>
+      {asignatura.descripcion.length > 40 ? asignatura.descripcion.substring(0, 40).toUpperCase() + '...' : asignatura.descripcion.toUpperCase()}
+    </td>
+    <td className={`px-4 py-1 text-xs ${asignatura.eliminado ? 'thick-line-through' : ''}`}>
+      {asignatura.profesorNombre ? `${asignatura.profesorNombre.toUpperCase()} ${asignatura.profesorApellido.toUpperCase()}` : 'Sin profesor'}
+    </td>
+    <td className={`px-4 py-1 text-xs ${asignatura.eliminado ? 'thick-line-through' : ''}`}>
+      {asignatura.gradoNombre ? asignatura.gradoNombre.toUpperCase() : ''}
+    </td>
+    <td className={`px-4 py-1 text-xs ${asignatura.eliminado ? 'line-through' : ''}`}>
+      
+    </td>
+    <td className="px-4 py-1 text-right">
+      <button className="bg-blue-500 text-xs text-white px-2 py-1 rounded hover:bg-blue-600 mr-2 w-24 h-8 " onClick={() => navigate(`/ActualizarAsignatura/${asignatura.id}?currentUserId=${id}`)}  disabled={asignatura.eliminado}>
+        <i className="fa-solid fa-file-pen"></i> Actualizar
+      </button>
+      <button
+        className={`bg-${asignatura.eliminado ? 'green' : 'red'}-500 text-xs text-white px-2 py-1 rounded hover:bg-${asignatura.eliminado ? 'green' : 'red'}-600 w-24 h-8`}
+        onClick={() => handleToggleAsignatura(asignatura.id)}
+      >
+        <i className={`fa-solid ${asignatura.eliminado ? 'fa-check' : 'fa-eraser'}`}></i> {asignatura.eliminado ? 'Activar' : 'Eliminar'}
+      </button>
+    </td>
+  </tr>
+))}
             </tbody>
           </table>
         </div>
@@ -239,13 +254,12 @@ function ListarAsignaturas() {
       {isModalOpen && (
         <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
           <div className="max-w-sm mx-auto px-4 py-8">
-             <form onSubmit={(e) => e.preventDefault()}>
-            <div className="px-0 py-3 flex items-center justify-between">
-              <div className="flex items-center justify-center w-full">
-                <span className="text-2xl font-bold font-center">REGISTRO ASIGNATURAS</span>
+            <form onSubmit={(e) => e.preventDefault()}>
+              <div className="px-0 py-3 flex items-center justify-between">
+                <div className="flex items-center justify-center w-full">
+                  <span className="text-2xl font-bold font-center">REGISTRO ASIGNATURAS</span>
+                </div>
               </div>
-            </div>
-           
               <div className="mb-1">
                 <label className="block text-gray-700 font-bold mb-2 text-xs" htmlFor="nombre">
                   Nombre
@@ -312,33 +326,34 @@ function ListarAsignaturas() {
                 </select>
               </div>
               <div className="flex justify-center gap-2">
-              <button
-                className="bg-green-500 text-white text-xs px-4 py-2 rounded hover:bg-green-600 align-center w-32 h-8"
-                onClick={handleAgregarAsignatura}><i className="fa-solid fa-user-plus"></i> Agregar
-              </button>
-              <button
-                className="bg-red-500 text-white text-xs px-4 py-2 rounded hover:bg-red-600 align-center w-32 h-8"
-                onClick={() => setIsModalOpen(false)}
-              > <i class="fa-solid fa-ban"></i> Cancelar
-              </button>
+                <button
+                  className="bg-green-500 text-white text-xs px-4 py-2 rounded hover:bg-green-600 align-center w-32 h-8"
+                  onClick={handleAgregarAsignatura}
+                >
+                  <i className="fa-solid fa-user-plus"></i> Agregar
+                </button>
+                <button
+                  className="bg-red-500 text-white text-xs px-4 py-2 rounded hover:bg-red-600 align-center w-32 h-8"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  <i className="fa-solid fa-ban"></i> Cancelar
+                </button>
               </div>
             </form>
           </div>
         </Modal>
       )}
-       <div className="bg-gray-400 px-4 py-5 border-t border-gray-200 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            
-          </div>
-          <button
-            className="bg-green-500 text-xs text-white px-4 py-2 rounded hover:bg-green-600 align-center w-24 h-8"
-           onClick={() => setIsModalOpen(true)}
-          >
-            <i className="fa-solid fa-user-plus"></i> Agregar
-          </button>
+      <div className="bg-gray-400 px-4 py-5 border-t border-gray-200 flex items-center justify-between">
+        <div className="flex items-center space-x-2">
         </div>
+        <button
+          className="bg-green-500 text-xs text-white px-4 py-2 rounded hover:bg-green-600 align-center w-24 h-8"
+          onClick={() => setIsModalOpen(true)}
+        >
+          <i className="fa-solid fa-user-plus"></i> Agregar
+        </button>
+      </div>
     </div>
-    
   );
 }
 

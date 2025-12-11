@@ -8,6 +8,7 @@ import { Perfil } from './perfil.jsx'
 import { ActualizarUsuario } from './ActualizarUsuario.jsx'
 import { ListarGrados } from './ListarGrados.jsx' 
 import { ListarAsignaturas } from './ListarAsignaturas.jsx'
+import { ActualizarAsignatura } from './ActualizarAsignatura.jsx'
 
 
 
@@ -21,5 +22,6 @@ export {
     AdministradorDashboard,
     ActualizarUsuario,
     ListarGrados,
-    ListarAsignaturas
+    ListarAsignaturas,
+    ActualizarAsignatura
 }   

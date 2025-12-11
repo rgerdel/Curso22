@@ -18,4 +18,6 @@ router.patch('/usuario/:id', updateUser);
 //Ruta para eliminar un usuario (soft delete)
 router.delete('/usuario/:id', deleteUser)
 
+
+
 export default router;

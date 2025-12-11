@@ -1,11 +1,14 @@
 import { Router } from 'express';
 import { createAsignatura, getAllAsignaturas, updateAsignatura, getAsignaturaByQuery, deleteAsignatura, 
-    getAsignaturasByGrado, getAsignaturasConDetalles } from '../controllers/asignatura.controller.js';
+    getAsignaturasByGrado, getAsignaturaById, getAsignaturasConDetalles } from '../controllers/asignatura.controller.js';
 
 const router = Router();    
 
 // Ruta para traer todas las Asignaturas
 router.get('/asignaturas', getAllAsignaturas);
+
+// Ruta para traer una Asignatura por Id
+router.get('/asignatura/:id', getAsignaturaById);
 
 // Ruta para crear una nueva Asignatura
 router.post('/asignatura', createAsignatura);

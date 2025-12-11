@@ -132,7 +132,7 @@ function ListarUsuarios() {
             INICIO
           </button>
           <a href={`/usuarios/${id}`} className="text-gray-800 font-bold hover:text-gray-800 text-xs">USUARIO</a>
-          <a href={`/asignaturas/${id}`} className="text-gray-800 font-bold hover:text-gray-800 text-xs">MATERIAS</a>
+          <a href={`/asignaturas/${id}`} className="text-gray-800 font-bold hover:text-gray-800 text-xs">ASIGNATURAS</a>
           <a href="/grados" className="text-gray-800 font-bold hover:text-gray-800 text-xs">GRADOS</a>
         </div>
       </div>
@@ -167,7 +167,7 @@ function ListarUsuarios() {
                   <td className={`px-4 py-1 text-xs ${usuario.eliminado ? 'thick-line-through' : ''}`}>{usuario.apellido.toUpperCase()}</td>
                   <td className={`px-4 py-1 text-xs ${usuario.eliminado ? 'thick-line-through' : ''}`}>{usuario.email.toUpperCase()}</td>
                   <td className="px-4 py-1 text-right">
-                    <button className="bg-blue-500 text-xs text-white px-2 py-1 rounded hover:bg-blue-600 mr-2 w-24 h-8 " onClick={() => navigate(`/ActualizarUsuario/${usuario._id}?currentUserId=${id}`)}><i class="fa-solid fa-file-pen"></i> Actualizar</button>
+                    <button className="bg-blue-500 text-xs text-white px-2 py-1 rounded hover:bg-blue-600 mr-2 w-24 h-8 " onClick={() => navigate(`/ActualizarUsuario/${usuario._id}?currentUserId=${id}`)} disabled={usuario.eliminado}><i class="fa-solid fa-file-pen"></i> Actualizar</button>
                     <button
                       className={`bg-${usuario.eliminado ? 'green' : 'red'}-500 text-xs text-white px-2 py-1 rounded hover:bg-${usuario.eliminado ? 'green' : 'red'}-600 w-24 h-8`}
                       onClick={() => handleToggleUser(usuario._id)}

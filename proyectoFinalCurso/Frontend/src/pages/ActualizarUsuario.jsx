@@ -1,3 +1,5 @@
+//ActualizarAsignatura
+
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 //import Modal from '../components/Modal';
@@ -69,7 +71,7 @@ function ActualizarUsuario() {
 
   return (
     
-    <div className="max-w-sm mx-auto px-4 py-0">
+  <div className="max-w-sm mx-auto px-4 py-0">
   <div className="px-4 py-5 border border-gray-300 bg-gray-300 text-center">
     <span className="text-2xl font-bold">ACTUALIZAR USUARIO</span>
   </div>
