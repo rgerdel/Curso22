@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAllUsers, getUserById, createUser, updateUser, deleteUser } from '../controllers/usuario.controller.js';
+import { getAllUsers, getUserById, createUser, updateUser, deleteUser, getUsuariosByRol } from '../controllers/usuario.controller.js';
 
 const router = Router();
 
@@ -17,6 +17,11 @@ router.patch('/usuario/:id', updateUser);
 
 //Ruta para eliminar un usuario (soft delete)
 router.delete('/usuario/:id', deleteUser)
+
+
+// Ruta para traer usuarios por rol
+router.get('/usuarios/rol/:rol', getUsuariosByRol);
+
 
 
 

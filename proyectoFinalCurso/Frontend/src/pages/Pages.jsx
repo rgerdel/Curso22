@@ -9,7 +9,9 @@ import { ActualizarUsuario } from './ActualizarUsuario.jsx'
 import { ListarGrados } from './ListarGrados.jsx' 
 import { ListarAsignaturas } from './ListarAsignaturas.jsx'
 import { ActualizarAsignatura } from './ActualizarAsignatura.jsx'
-
+import { EstudiantesGrados } from './EstudiantesGrados.jsx'
+import { VerAsignaturas } from './VerAsignaturas.jsx'
+ 
 
 
 export { 
@@ -23,5 +25,7 @@ export {
     ActualizarUsuario,
     ListarGrados,
     ListarAsignaturas,
-    ActualizarAsignatura
+    ActualizarAsignatura,
+    EstudiantesGrados,
+    VerAsignaturas
 }   

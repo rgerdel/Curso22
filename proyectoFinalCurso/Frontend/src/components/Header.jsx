@@ -9,8 +9,7 @@ const Header = ({ usuario, id }) => {
   };
 
   const handleLogout = () => {
-    // Lógica para cerrar sesión
-    // Por ejemplo, puedes llamar a una función de logout desde un contexto o un servicio
+    //cerrar sesión
     console.log('Cerrar sesión');
     navigate('/login');
   };

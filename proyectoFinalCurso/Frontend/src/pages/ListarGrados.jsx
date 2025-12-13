@@ -132,7 +132,7 @@ function ListarGrados() {
           </button>
           <a href={`/usuarios/${id}`} className="text-gray-800 font-bold hover:text-gray-800 text-xs">USUARIO</a>
           <a href="/materias" className="text-gray-800 font-bold hover:text-gray-800 text-xs">MATERIAS</a>
-          <a href="/grados" className="text-gray-800 font-bold hover:text-gray-800 text-xs">GRADOS</a>
+          <a href={`/estudiantesgrados/${id}`} className="text-gray-800 font-bold hover:text-gray-800 text-xs">GRADOS</a>
         </div>
       </div>
       <div className="bg-white shadow-md rounded my- bg-gray-400">

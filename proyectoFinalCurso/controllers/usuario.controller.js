@@ -80,6 +80,21 @@ export const deleteUser = async (req, res) => {
   }
 };
 
+// obtener usuarios por rol
+export const getUsuariosByRol = async (req, res) => {
+    try {
+        const { rol } = req.query; // Obtener el rol desde los parámetros de la URL
+        if (!rol) {
+            return res.status(400).json({ error: 'El parámetro "rol" es requerido' });
+        }
+
+        const usuarios = await Usuario.find({ rol: rol });
+        res.status(200).json(usuarios);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener los usuarios', details: error.message });
+    }
+};
+
 
 
 

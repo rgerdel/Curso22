@@ -7,6 +7,7 @@ import calificacionRoutes from './routes/calificacion.routes.js';
 import asignaturaRoutes from './routes/asignatura.routes.js';
 import gradoRoutes from './routes/grado.routes.js';
 import loginRoutes from './routes/login.routes.js';
+import estudiantesGradosRoutes from './routes/estudiantesGrados.routes.js';
 import cors from 'cors';
 
 const app = express();
@@ -43,6 +44,8 @@ app.use('/api', entregaRoutes);
 app.use('/api', calificacionRoutes);
 app.use('/api', asignaturaRoutes);
 app.use('/api', gradoRoutes);
+app.use('/api', estudiantesGradosRoutes);
+
 
 
 
