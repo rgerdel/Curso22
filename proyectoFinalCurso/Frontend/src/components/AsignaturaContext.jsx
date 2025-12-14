@@ -1,3 +1,5 @@
+// src/components/AsignarutaContext.jsx
+
 import React, { createContext, useState, useEffect } from 'react';
 
 export const AsignaturaContext = createContext();

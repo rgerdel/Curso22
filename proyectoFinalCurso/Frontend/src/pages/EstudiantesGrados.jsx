@@ -1,9 +1,9 @@
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Modal from '../components/Modal';
-import Header from '../components/Header';
-import '../components/styles.css';
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Modal from "../components/Modal";
+import Header from "../components/Header";
+import "../components/styles.css";
 
 function EstudiantesGrados() {
   const { id } = useParams();
@@ -18,19 +18,23 @@ function EstudiantesGrados() {
 
   // Estado para la nueva asignación de grado
   const [nuevaAsignacion, setNuevaAsignacion] = useState({
-    id_estudiante: '',
-    id_grado: ''
+    id_estudiante: "",
+    id_grado: "",
   });
 
   // Definición de fetchEstudiantesConGrados
   const fetchEstudiantesConGrados = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/estudiantesGrados/detalles");
+      const response = await fetch(
+        "http://localhost:3000/api/estudiantesGrados/detalles"
+      );
       if (!response.ok) {
-        throw new Error(`Network response was not ok. Status: ${response.status}`);
+        throw new Error(
+          `Network response was not ok. Status: ${response.status}`
+        );
       }
       const data = await response.json();
-      console.log('Estudiantes con grados:', data); // Verifica los datos aquí
+      console.log("Estudiantes con grados:", data); // Verifica los datos aquí
       setEstudiantesConGrados(data);
       setLoading(false);
     } catch (error) {
@@ -45,7 +49,7 @@ function EstudiantesGrados() {
       try {
         const response = await fetch(`http://localhost:3000/api/usuario/${id}`);
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         const data = await response.json();
         setUsuarioActual(data);
@@ -58,9 +62,13 @@ function EstudiantesGrados() {
 
     const fetchEstudiantes = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/usuarios?rol=estudiante");
+        const response = await fetch(
+          "http://localhost:3000/api/usuarios?rol=estudiante"
+        );
         if (!response.ok) {
-          throw new Error(`Network response was not ok. Status: ${response.status}`);
+          throw new Error(
+            `Network response was not ok. Status: ${response.status}`
+          );
         }
         const data = await response.json();
         setEstudiantes(data);
@@ -73,7 +81,9 @@ function EstudiantesGrados() {
       try {
         const response = await fetch("http://localhost:3000/api/grados");
         if (!response.ok) {
-          throw new Error(`Network response was not ok. Status: ${response.status}`);
+          throw new Error(
+            `Network response was not ok. Status: ${response.status}`
+          );
         }
         const data = await response.json();
         setGrados(data);
@@ -95,21 +105,26 @@ function EstudiantesGrados() {
         return;
       }
 
-      const response = await fetch("http://localhost:3000/api/estudiantesGrados", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          id_estudiante: nuevaAsignacion.id_estudiante,
-          id_grado: nuevaAsignacion.id_grado
-        })
-      });
+      const response = await fetch(
+        "http://localhost:3000/api/estudiantesGrados",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id_estudiante: nuevaAsignacion.id_estudiante,
+            id_grado: nuevaAsignacion.id_grado,
+          }),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Error al asignar el grado al estudiante:", errorData);
-        throw new Error(`Network response was not ok. Status: ${response.status}`);
+        throw new Error(
+          `Network response was not ok. Status: ${response.status}`
+        );
       }
 
       const data = await response.json();
@@ -117,8 +132,8 @@ function EstudiantesGrados() {
       fetchEstudiantesConGrados();
       setIsModalOpen(false);
       setNuevaAsignacion({
-        id_estudiante: '',
-        id_grado: ''
+        id_estudiante: "",
+        id_grado: "",
       });
     } catch (error) {
       console.error("Error al asignar el grado al estudiante:", error);
@@ -129,7 +144,7 @@ function EstudiantesGrados() {
     const { name, value } = e.target;
     setNuevaAsignacion({
       ...nuevaAsignacion,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -138,15 +153,35 @@ function EstudiantesGrados() {
       <Header usuario={usuarioActual} id={id} />
       <div className="px-4 py-5 border border-gray-300 bg-gray-300 flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <p className="text-xs font-bold ">PANEL DEL {usuarioActual?.rol.toUpperCase() || '' }</p>
+          <p className="text-xs font-bold ">
+            PANEL DEL {usuarioActual?.rol.toUpperCase() || ""}
+          </p>
         </div>
         <div className="flex items-center space-x-4">
-          <button className="text-gray-800 font-bold hover:text-gray-800 text-xs" onClick={() => navigate(`/administradorDashboard/${id}`)}>
+          <button
+            className="text-gray-800 font-bold hover:text-gray-800 text-xs"
+            onClick={() => navigate(`/administradorDashboard/${id}`)}
+          >
             INICIO
           </button>
-          <a href={`/usuarios/${id}`} className="text-gray-800 font-bold hover:text-gray-800 text-xs">USUARIO</a>
-          <a href={`/asignaturas/${id}`} className="text-gray-800 font-bold hover:text-gray-800 text-xs">ASIGNATURAS</a>
-          <a href={`/estudiantesgrados/${id}`} className="text-gray-800 font-bold hover:text-gray-800 text-xs">GRADOS</a>
+          <a
+            href={`/usuarios/${id}`}
+            className="text-gray-800 font-bold hover:text-gray-800 text-xs"
+          >
+            USUARIO
+          </a>
+          <a
+            href={`/asignaturas/${id}`}
+            className="text-gray-800 font-bold hover:text-gray-800 text-xs"
+          >
+            ASIGNATURAS
+          </a>
+          <a
+            href={`/estudiantesgrados/${id}`}
+            className="text-gray-800 font-bold hover:text-gray-800 text-xs"
+          >
+            GRADOS
+          </a>
         </div>
       </div>
       <div className="bg-white shadow-md rounded my-0 bg-gray-400">
@@ -158,7 +193,9 @@ function EstudiantesGrados() {
             >
               <i className="fa-solid fa-user-plus"></i> Asignar
             </button>
-            <h2 className="text-3xl font-bold text-white">Lista de Estudiantes con Grados</h2>
+            <h2 className="text-3xl font-bold text-white">
+              Listado de Estudiantes
+            </h2>
           </div>
         </div>
         <div className="overflow-x-auto">
@@ -167,7 +204,7 @@ function EstudiantesGrados() {
               <tr className="text-left font-bold tracking-wide text-white uppercase bg-gray-400 border-b border-gray-400">
                 <th className="px-4 py-3 text-xs">Nombre</th>
                 <th className="px-4 py-3 text-xs">Apellido</th>
-                <th className="px-4 py-3 text-xs">Grado</th>
+                <th className="px-4 py-3 text-xs">Grado Cursante</th>
               </tr>
             </thead>
             <tbody className="bg-gray-200 divide-y divide-gray-200">
@@ -182,19 +219,27 @@ function EstudiantesGrados() {
                   <td className="px-4 py-1 text-xs">
                     {estudianteConGrado.id_grado?.nombre?.toUpperCase()}
                   </td>
-                  <td className="px-4 py-1 text-xs">
+                  <td className="px-4 py-1 text-xs flex justify-end">
                     <button
                       className="bg-blue-500 text-white text-xs px-2 py-1 rounded hover:bg-blue-600 mr-2"
-                      onClick={() => navigate(`/verAsignaturas/${estudianteConGrado.id_grado?._id}?currentUserId=${id}&from=${encodeURIComponent(window.location.pathname)}`)}
+                      onClick={() =>
+                        navigate(
+                          `/verAsignaturas/${estudianteConGrado.id_grado?._id}?currentUserId=${id}&from=${encodeURIComponent(window.location.pathname)}&nombreCompleto=${encodeURIComponent(`${estudianteConGrado.id_estudiante?.nombre?.toUpperCase()} ${estudianteConGrado.id_estudiante?.apellido?.toUpperCase()}`)}&nombreGrado=${encodeURIComponent(estudianteConGrado.id_grado?.nombre?.toUpperCase())}`
+                        )
+                      }
                     >
-                      <i className="fa-solid fa-eye"></i> Ver Asignaturas
+                      <i className="fa-solid fa-eye"></i> Ver Asignaturas del Grado
                     </button>
                     <button
-                      className="bg-yellow-500 text-white text-xs px-2 py-1 rounded hover:bg-yellow-600"
-                      onClick={() => navigate(`/actualizarEstudianteGrado/${estudianteConGrado._id}`)}
-                    >
-                      <i className="fa-solid fa-edit"></i> Actualizar E/G
-                    </button>
+  className="bg-yellow-500 text-white text-xs px-2 py-1 rounded hover:bg-yellow-600"
+  onClick={() =>
+    navigate(
+      `/ActualizarEstudianteGrado/${estudianteConGrado._id}?currentUserId=${id}&nombre=${encodeURIComponent(estudianteConGrado.id_estudiante?.nombre?.toUpperCase())}&apellido=${encodeURIComponent(estudianteConGrado.id_estudiante?.apellido?.toUpperCase())}&grado=${encodeURIComponent(estudianteConGrado.id_grado?.nombre?.toUpperCase())}`
+    )
+  }
+>
+  <i className="fa-solid fa-edit"></i> Actualizar Asignación Grado
+</button>
                   </td>
                 </tr>
               ))}
@@ -203,16 +248,24 @@ function EstudiantesGrados() {
         </div>
       </div>
       {isModalOpen && (
-        <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)}
+        >
           <div className="max-w-sm mx-auto px-4 py-8">
             <form onSubmit={(e) => e.preventDefault()}>
               <div className="px-0 py-3 flex items-center justify-between">
                 <div className="flex items-center justify-center w-full">
-                  <span className="text-2xl font-bold font-center">ASIGNAR GRADO</span>
+                  <span className="text-2xl font-bold font-center">
+                    ASIGNAR GRADO
+                  </span>
                 </div>
               </div>
               <div className="mb-1">
-                <label className="block text-gray-700 font-bold mb-2 text-xs" htmlFor="id_estudiante">
+                <label
+                  className="block text-gray-700 font-bold mb-2 text-xs"
+                  htmlFor="id_estudiante"
+                >
                   Estudiante
                 </label>
                 <select
@@ -223,15 +276,20 @@ function EstudiantesGrados() {
                   onChange={handleInputChange}
                 >
                   <option value="">Seleccione un estudiante</option>
-                  {estudiantes.filter(estudiante => estudiante.rol === 'estudiante').map(estudiante => (
-                    <option key={estudiante._id} value={estudiante._id}>
-                      {`${estudiante.nombre.toUpperCase()} ${estudiante.apellido.toUpperCase()}`}
-                    </option>
-                  ))}
+                  {estudiantes
+                    .filter((estudiante) => estudiante.rol === "estudiante")
+                    .map((estudiante) => (
+                      <option key={estudiante._id} value={estudiante._id}>
+                        {`${estudiante.nombre.toUpperCase()} ${estudiante.apellido.toUpperCase()}`}
+                      </option>
+                    ))}
                 </select>
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700 text-xs font-bold mb-2" htmlFor="id_grado">
+                <label
+                  className="block text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="id_grado"
+                >
                   Grado
                 </label>
                 <select
@@ -242,7 +300,7 @@ function EstudiantesGrados() {
                   onChange={handleInputChange}
                 >
                   <option value="">Seleccione un grado</option>
-                  {grados.map(grado => (
+                  {grados.map((grado) => (
                     <option key={grado._id} value={grado._id}>
                       {grado.nombre}
                     </option>
@@ -268,8 +326,7 @@ function EstudiantesGrados() {
         </Modal>
       )}
       <div className="bg-gray-400 px-4 py-5 border-t border-gray-200 flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-        </div>
+        <div className="flex items-center space-x-2"></div>
         <button
           className="bg-green-500 text-xs text-white px-4 py-2 rounded hover:bg-green-600 align-center w-24 h-8"
           onClick={() => setIsModalOpen(true)}

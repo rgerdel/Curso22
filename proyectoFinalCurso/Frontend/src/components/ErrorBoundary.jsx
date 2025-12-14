@@ -1,4 +1,6 @@
-import React from 'react';
+// src/components/Boundary.jsx
+
+import React from "react";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {

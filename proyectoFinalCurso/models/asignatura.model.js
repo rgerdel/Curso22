@@ -21,12 +21,6 @@ const asignaturaSchema = new mongoose.Schema({
     maxlength: 50,
     trim: true,
     lowercase: true,
-    validate: {
-      validator: function (v) {
-        return /^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$/.test(v);
-      },
-      message: props => `${props.value} no es un nombre válido!`
-    },
   },
   descripcion: {
     type: String,

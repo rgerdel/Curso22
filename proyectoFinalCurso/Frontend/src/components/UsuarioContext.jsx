@@ -1,4 +1,6 @@
-import React, { createContext, useState, useContext } from 'react';
+// src/components/UsuarioContext.jsx
+
+import React, { createContext, useState, useContext } from "react";
 
 const UsuarioContext = createContext();
 

@@ -19,6 +19,13 @@ function Login() {
     setLoading(true);
     setError(null);
 
+    // Validar campos vacíos
+    if (!email || !password) {
+      setError('Campos Vacios: Introduzca una direccion de correo y contraseña.');
+      setLoading(false);
+      return;
+    }
+
     fetch('http://localhost:3000/api/login', {
       method: 'POST',
       headers: {
@@ -26,40 +33,40 @@ function Login() {
       },
       body: JSON.stringify({ email, password }),
     })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then((data) => {
-      setLoading(false);
-      // Redirigir según el rol
-      switch (data.rol) {
-        case 'admin':
-          navigate(`/administradorDashboard/${data._id}`);
-          break;
-        case 'estudiante':
-          navigate(`/estudianteDashboard/${data._id}`);
-          break;
-        case 'profesor':
-          navigate(`/profesorDashboard/${data._id}`);
-          break;
-        default:
-          setError('Rol no válido');
-      }
-    })
-    .catch((error) => {
-      console.error('Error al iniciar sesión:', error);
-      setError('Credenciales incorrectas');
-      setLoading(false);
-    });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setLoading(false);
+        // Redirigir según el rol
+        switch (data.rol) {
+          case 'admin':
+            navigate(`/administradorDashboard/${data._id}`);
+            break;
+          case 'estudiante':
+            navigate(`/estudianteDashboard/${data._id}`);
+            break;
+          case 'profesor':
+            navigate(`/profesorDashboard/${data._id}`);
+            break;
+          default:
+            setError('Rol no válido');
+        }
+      })
+      .catch((error) => {
+        console.error('Error al iniciar sesión:', error);
+        setError('Datos Incorrectos, por favor verifique e intente nuevamente');
+        setLoading(false);
+      });
   };
 
 
-    const togglePasswordVisibility = () => {
+  const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
-    };
+  };
 
   return (
     <div className="bg-gray-200 min-h-screen">
@@ -70,7 +77,7 @@ function Login() {
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2 text-sm" htmlFor="email">
-              Email:
+              Correo electrónico:
             </label>
             <input
               className="w-full p-2 border border-gray-300 rounded text-sm"
@@ -78,6 +85,7 @@ function Login() {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              
               placeholder="Introduzca su Email"
             />
           </div>
@@ -86,14 +94,15 @@ function Login() {
               Contraseña:
             </label>
             <div className="relative">
-            <input
-              className="w-full p-2 border border-gray-300 rounded text-sm"
-              type={passwordVisible ? "text" : "password"}
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Introduzca su Contraseña"
-            />
+              <input
+                className="w-full p-2 border border-gray-300 rounded text-sm"
+                type={passwordVisible ? "text" : "password"}
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+               // required
+                placeholder="Introduzca su Contraseña"
+              />
               <button
                 type="button"
                 className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
@@ -105,7 +114,7 @@ function Login() {
                   <i className="fa-solid fa-eye-slash"></i>
                 )}
               </button>
-              </div>
+            </div>
           </div>
           <div className="flex justify-center">
             <button
@@ -115,7 +124,7 @@ function Login() {
             </button>
           </div>
         </form>
-        <p className="text-center mt-4 text-xs">¿Olvidaste tu contraseña?</p>
+        <p className="text-center mt-4 text-xs"></p>
         {error && <p className="text-red-500 text-center mt-4">{error}</p>}
       </div>
       <footer className="w-full bg-gray-800 text-white text-center py-2 mt-10 text-xs">

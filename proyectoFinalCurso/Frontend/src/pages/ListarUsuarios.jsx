@@ -1,11 +1,9 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { logout } from '../utils/auth';
 import Modal from '../components/Modal';
 import Header from '../components/Header.jsx';
-import '../components/styles.css'
-
+import '../components/styles.css';
 
 function ListarUsuarios() {
   const { id } = useParams();
@@ -16,6 +14,7 @@ function ListarUsuarios() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newUser, setNewUser] = useState({ nombre: '', apellido: '', email: '', password: '', rol: 'estudiante' });
   const [usuarioActual, setUsuarioActual] = useState(null); // Estado para el usuario actual
+  const [formErrors, setFormErrors] = useState({}); // Estado para los errores de validación
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -62,6 +61,7 @@ function ListarUsuarios() {
   const handleModalClose = () => {
     setIsModalOpen(false);
     setNewUser({ nombre: '', apellido: '', email: '', password: '', rol: '' });
+    setFormErrors({}); // Limpiar errores al cerrar el modal
   };
 
   const handleInputChange = (e) => {
@@ -69,8 +69,42 @@ function ListarUsuarios() {
     setNewUser({ ...newUser, [name]: value });
   };
 
+  const validateForm = () => {
+    const errors = {};
+
+    // Validar nombre (solo letras)
+    if (!/^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$/.test(newUser.nombre)) {
+      errors.nombre = "El nombre debe contener solo letras.";
+    }
+
+    // Validar apellido (solo letras)
+    if (!/^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$/.test(newUser.apellido)) {
+      errors.apellido = "El apellido debe contener solo letras.";
+    }
+
+    // Validar email (formato correcto)
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newUser.email)) {
+      errors.email = "El email no es válido.";
+    }
+
+    // Validar password (mínimo 8 caracteres, al menos 1 mayúscula, 1 minúscula, 1 número y 1 carácter especial)
+    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d\s])[A-Za-z\d\s\W_]{8,}$/.test(newUser.password)) {
+      errors.password = "La contraseña debe tener al menos 8 caracteres, incluyendo al menos una mayúscula, una minúscula, un número y un carácter especial.";
+    }
+
+    return errors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validar el formulario
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return; // No enviar el formulario si hay errores
+    }
+
     try {
       const response = await fetch('http://localhost:3000/api/usuario', {
         method: 'POST',
@@ -81,6 +115,8 @@ function ListarUsuarios() {
       });
 
       if (!response.ok) {
+        const errorData = await response.json(); // Suponiendo que la API devuelve errores en formato JSON
+        setFormErrors(errorData.errors || {});
         throw new Error('Network response was not ok');
       }
 
@@ -95,28 +131,28 @@ function ListarUsuarios() {
   };
 
   const handleToggleUser = async (userId) => {
-    try {
-      const response = await fetch(`http://localhost:3000/api/usuario/${userId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          eliminado: !usuarios.find(user => user._id === userId).eliminado,
-        }),
-      });
+  try {
+    const response = await fetch(`http://localhost:3000/api/usuario/${userId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        eliminado: !usuarios.find(user => user._id === userId).eliminado,
+      }),
+    });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const updatedUser = await response.json();
-      setUsuarios(usuarios.map(user => user._id === userId ? updatedUser : user));
-    } catch (error) {
-      console.error("Error al actualizar el usuario:", error);
-      setError(error);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
-  };
+
+    const updatedUser = await response.json();
+    setUsuarios(usuarios.map(user => user._id === userId ? updatedUser : user));
+  } catch (error) {
+    console.error("Error al actualizar el usuario:", error);
+    setError(error);
+  }
+};
 
   if (loading) return <div className="text-center text-gray-600">Cargando...</div>;
 
@@ -214,10 +250,13 @@ function ListarUsuarios() {
                 type="text"
                 id="nombre"
                 name="nombre"
-                value={newUser.nombre.toUpperCase()}
+                value={newUser.nombre}
                 onChange={handleInputChange}
                 placeholder="Nombre"
               />
+              {formErrors.nombre && (
+                <p className="text-red-500 text-xs">{formErrors.nombre}</p>
+              )}
             </div>
             <div className="mb-1">
               <label className="block text-gray-700 font-bold mb-2 text-xs" htmlFor="apellido">
@@ -228,10 +267,13 @@ function ListarUsuarios() {
                 type="text"
                 id="apellido"
                 name="apellido"
-                value={newUser.apellido.toUpperCase()}
+                value={newUser.apellido}
                 onChange={handleInputChange}
                 placeholder="Apellido"
               />
+              {formErrors.apellido && (
+                <p className="text-red-500 text-xs">{formErrors.apellido}</p>
+              )}
             </div>
             <div className="mb-1">
               <label className="block text-gray-700 font-bold mb-2 text-xs" htmlFor="email">
@@ -242,10 +284,13 @@ function ListarUsuarios() {
                 type="email"
                 id="email"
                 name="email"
-                value={newUser.email.toUpperCase()}
+                value={newUser.email}
                 onChange={handleInputChange}
                 placeholder="Email"
               />
+              {formErrors.email && (
+                <p className="text-red-500 text-xs">{formErrors.email}</p>
+              )}
             </div>
             <div className="mb-1">
               <label className="block text-gray-700 font-bold mb-2 text-xs" htmlFor="password">
@@ -260,6 +305,9 @@ function ListarUsuarios() {
                 onChange={handleInputChange}
                 placeholder="Contraseña"
               />
+              {formErrors.password && (
+                <p className="text-red-500 text-xs">{formErrors.password}</p>
+              )}
             </div>
             <div className="mb-4">
               <label className="block text-gray-700 font-bold mb-2 text-xs" htmlFor="rol">
@@ -288,7 +336,6 @@ function ListarUsuarios() {
                 onClick={() => setIsModalOpen(false)}
               > <i class="fa-solid fa-ban"></i> Cancelar
               </button>
-
             </div>
           </form>
         </div>

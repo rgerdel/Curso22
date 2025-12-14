@@ -5,7 +5,6 @@ import Modal from '../components/Modal';
 import Header from '../components/Header';
 import '../components/styles.css';
 
-
 function ListarAsignaturas() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -16,32 +15,30 @@ function ListarAsignaturas() {
   const [usuarioActual, setUsuarioActual] = useState(null);
   const [profesores, setProfesores] = useState([]);
   const [grados, setGrados] = useState([]);
-
-  // Estado para la nueva asignatura
   const [nuevaAsignatura, setNuevaAsignatura] = useState({
     nombre: '',
     descripcion: '',
     profesorId: '',
     gradoId: ''
   });
+  const [formErrors, setFormErrors] = useState({});
 
-  // Definición de fetchAsignaturas
   const fetchAsignaturas = async () => {
-  try {
-    const response = await fetch("http://localhost:3000/api/asignaturas/detalles");
-    if (!response.ok) {
-      throw new Error(`Network response was not ok. Status: ${response.status}`);
+    try {
+      const response = await fetch("http://localhost:3000/api/asignaturas/detalles");
+      if (!response.ok) {
+        throw new Error(`Network response was not ok. Status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log('Asignaturas con detalles:', data); // Verifica los datos aquí
+      setAsignaturas(data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error al obtener las asignaturas con detalles:", error);
+      setError(error.message);
+      setLoading(false);
     }
-    const data = await response.json();
-    console.log('Asignaturas con detalles:', data); // Verifica los datos aquí
-    setAsignaturas(data);
-    setLoading(false);
-  } catch (error) {
-    console.error("Error al obtener las asignaturas con detalles:", error);
-    setError(error.message);
-    setLoading(false);
-  }
-};
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -91,20 +88,48 @@ function ListarAsignaturas() {
     fetchGrados();
   }, [id]);
 
-  const handleAgregarAsignatura = async () => {
-    try {
-      if (!nuevaAsignatura.nombre || !nuevaAsignatura.descripcion || !nuevaAsignatura.profesorId || !nuevaAsignatura.gradoId) {
-        console.error("Faltan campos obligatorios");
-        return;
-      }
+  const validateAsignatura = () => {
+    const errors = {};
 
+    // Validar nombre (requerido, no vacío)
+    if (!nuevaAsignatura.nombre.trim()) {
+      errors.nombre = "El nombre es requerido.";
+    }
+
+    // Validar descripción (requerido, no vacío)
+    if (!nuevaAsignatura.descripcion.trim()) {
+      errors.descripcion = "La descripción es requerida.";
+    }
+
+    // Validar profesor (requerido, no vacío)
+    if (!nuevaAsignatura.profesorId.trim()) {
+      errors.profesorId = "Debe seleccionar un profesor.";
+    }
+
+    // Validar grado (requerido, no vacío)
+    if (!nuevaAsignatura.gradoId.trim()) {
+      errors.gradoId = "Debe seleccionar un grado.";
+    }
+
+    setFormErrors(errors);
+    return errors;
+  };
+
+  const handleAgregarAsignatura = async () => {
+    // Validar el formulario
+    const errors = validateAsignatura();
+    if (Object.keys(errors).length > 0) {
+      console.error("Errores de validación:", errors);
+      return; // No enviar el formulario si hay errores
+    }
+
+    try {
       const response = await fetch("http://localhost:3000/api/asignatura", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          
           nombre: nuevaAsignatura.nombre,
           descripcion: nuevaAsignatura.descripcion,
           id_profesor: nuevaAsignatura.profesorId,
@@ -143,39 +168,39 @@ function ListarAsignaturas() {
   };
 
   const handleToggleAsignatura = async (asignaturaId) => {
-  try {
-    console.log('Actualizando asignatura con ID:', asignaturaId); // Verifica que el ID no sea undefined
+    try {
+      console.log('Actualizando asignatura con ID:', asignaturaId); // Verifica que el ID no sea undefined
 
-    const asignatura = asignaturas.find(a => a.id === asignaturaId);
-    if (!asignatura) {
-      throw new Error('Asignatura no encontrada');
-    }
-
-    const response = await fetch(`http://localhost:3000/api/asignatura/${asignaturaId}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ eliminado: !asignatura.eliminado })
-    });
-
-    if (!response.ok) {
-      throw new Error(`Network response was not ok. Status: ${response.status}`);
-    }
-
-    const updatedAsignatura = await response.json();
-    const updatedAsignaturas = asignaturas.map(a => {
-      if (a.id === asignaturaId) {
-        return { ...a, eliminado: !a.eliminado };
+      const asignatura = asignaturas.find(a => a.id === asignaturaId);
+      if (!asignatura) {
+        throw new Error('Asignatura no encontrada');
       }
-      return a;
-    });
 
-    setAsignaturas(updatedAsignaturas);
-  } catch (error) {
-    console.error("Error al togglear el estado de la asignatura:", error);
-  }
-};
+      const response = await fetch(`http://localhost:3000/api/asignatura/${asignaturaId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ eliminado: !asignatura.eliminado })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Network response was not ok. Status: ${response.status}`);
+      }
+
+      const updatedAsignatura = await response.json();
+      const updatedAsignaturas = asignaturas.map(a => {
+        if (a.id === asignaturaId) {
+          return { ...a, eliminado: !a.eliminado };
+        }
+        return a;
+      });
+
+      setAsignaturas(updatedAsignaturas);
+    } catch (error) {
+      console.error("Error al togglear el estado de la asignatura:", error);
+    }
+  };
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-0">
@@ -217,36 +242,36 @@ function ListarAsignaturas() {
               </tr>
             </thead>
             <tbody className="bg-gray-200 divide-y divide-gray-200">
-             {asignaturas.map((asignatura, index) => (
-  <tr key={index} className="text-gray-700 ">
-    <td className={`px-4 py-1 text-xs ${asignatura.eliminado ? 'thick-line-through' : ''}`}>
-      {asignatura.nombre.toUpperCase()}
-    </td>
-    <td className={`px-4 py-1 text-xs ${asignatura.eliminado ? 'thick-line-through' : ''}`}>
-      {asignatura.descripcion.length > 40 ? asignatura.descripcion.substring(0, 40).toUpperCase() + '...' : asignatura.descripcion.toUpperCase()}
-    </td>
-    <td className={`px-4 py-1 text-xs ${asignatura.eliminado ? 'thick-line-through' : ''}`}>
-      {asignatura.profesorNombre ? `${asignatura.profesorNombre.toUpperCase()} ${asignatura.profesorApellido.toUpperCase()}` : 'Sin profesor'}
-    </td>
-    <td className={`px-4 py-1 text-xs ${asignatura.eliminado ? 'thick-line-through' : ''}`}>
-      {asignatura.gradoNombre ? asignatura.gradoNombre.toUpperCase() : ''}
-    </td>
-    <td className={`px-4 py-1 text-xs ${asignatura.eliminado ? 'line-through' : ''}`}>
-      
-    </td>
-    <td className="px-4 py-1 text-right">
-      <button className="bg-blue-500 text-xs text-white px-2 py-1 rounded hover:bg-blue-600 mr-2 w-24 h-8 " onClick={() => navigate(`/ActualizarAsignatura/${asignatura.id}?currentUserId=${id}`)}  disabled={asignatura.eliminado}>
-        <i className="fa-solid fa-file-pen"></i> Actualizar
-      </button>
-      <button
-        className={`bg-${asignatura.eliminado ? 'green' : 'red'}-500 text-xs text-white px-2 py-1 rounded hover:bg-${asignatura.eliminado ? 'green' : 'red'}-600 w-24 h-8`}
-        onClick={() => handleToggleAsignatura(asignatura.id)}
-      >
-        <i className={`fa-solid ${asignatura.eliminado ? 'fa-check' : 'fa-eraser'}`}></i> {asignatura.eliminado ? 'Activar' : 'Eliminar'}
-      </button>
-    </td>
-  </tr>
-))}
+              {asignaturas.map((asignatura, index) => (
+                <tr key={index} className="text-gray-700 ">
+                  <td className={`px-4 py-1 text-xs ${asignatura.eliminado ? 'thick-line-through' : ''}`}>
+                    {asignatura.nombre.toUpperCase()}
+                  </td>
+                  <td className={`px-0 py-1 text-xs ${asignatura.eliminado ? 'thick-line-through' : ''}`}>
+                    {asignatura.descripcion.length > 40 ? asignatura.descripcion.substring(0, 30).toUpperCase() + '...' : asignatura.descripcion.toUpperCase()}
+                  </td>
+                  <td className={`px-2 py-1 text-xs ${asignatura.eliminado ? 'thick-line-through' : ''}`}>
+                    {asignatura.profesorNombre ? `${asignatura.profesorNombre.toUpperCase()} ${asignatura.profesorApellido.toUpperCase()}` : 'Sin profesor'}
+                  </td>
+                  <td className={`px-2 py-1 text-xs ${asignatura.eliminado ? 'thick-line-through' : ''}`}>
+                    {asignatura.gradoNombre ? asignatura.gradoNombre.toUpperCase() : ''}
+                  </td>
+                  <td className={`px-2 py-1 text-xs ${asignatura.eliminado ? 'line-through' : ''}`}>
+                    
+                  </td>
+                  <td className="px-4 py-1 text-right">
+                    <button className="bg-blue-500 text-xs text-white px-2 py-1 rounded hover:bg-blue-600 mr-2 w-24 h-8 " onClick={() => navigate(`/ActualizarAsignatura/${asignatura.id}?currentUserId=${id}`)}  disabled={asignatura.eliminado}>
+                      <i className="fa-solid fa-file-pen"></i> Actualizar
+                    </button>
+                    <button
+                      className={`bg-${asignatura.eliminado ? 'green' : 'red'}-500 text-xs text-white px-2 py-1 rounded hover:bg-${asignatura.eliminado ? 'green' : 'red'}-600 w-24 h-8`}
+                      onClick={() => handleToggleAsignatura(asignatura.id)}
+                    >
+                      <i className={`fa-solid ${asignatura.eliminado ? 'fa-check' : 'fa-eraser'}`}></i> {asignatura.eliminado ? 'Activar' : 'Eliminar'}
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -269,10 +294,13 @@ function ListarAsignaturas() {
                   id="nombre"
                   type="text"
                   name="nombre"
-                  value={nuevaAsignatura.nombre.toUpperCase()}
+                  value={nuevaAsignatura.nombre}
                   onChange={handleInputChange}
                   placeholder="Nombre"
                 />
+                {formErrors.nombre && (
+                  <p className="text-red-500 text-xs">{formErrors.nombre}</p>
+                )}
               </div>
               <div className="mb-1">
                 <label className="block text-xs text-gray-700 font-bold mb-2" htmlFor="descripcion">
@@ -282,10 +310,13 @@ function ListarAsignaturas() {
                   className="w-full p-2 border border-gray-300 rounded text-xs"
                   id="descripcion"
                   name="descripcion"
-                  value={nuevaAsignatura.descripcion.toUpperCase()}
+                  value={nuevaAsignatura.descripcion}
                   onChange={handleInputChange}
                   placeholder="Escriba una breve descripcion"
                 ></textarea>
+                {formErrors.descripcion && (
+                  <p className="text-red-500 text-xs">{formErrors.descripcion}</p>
+                )}
               </div>
               <div className="mb-1">
                 <label className="block text-xs text-gray-700 font-bold mb-2" htmlFor="profesorId">
@@ -305,6 +336,9 @@ function ListarAsignaturas() {
                     </option>
                   ))}
                 </select>
+                {formErrors.profesorId && (
+                  <p className="text-red-500 text-xs">{formErrors.profesorId}</p>
+                )}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700 text-xs font-bold mb-2" htmlFor="gradoId">
@@ -324,6 +358,9 @@ function ListarAsignaturas() {
                     </option>
                   ))}
                 </select>
+                {formErrors.gradoId && (
+                  <p className="text-red-500 text-xs">{formErrors.gradoId}</p>
+                )}
               </div>
               <div className="flex justify-center gap-2">
                 <button

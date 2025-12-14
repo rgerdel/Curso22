@@ -27,14 +27,14 @@ export const createEstudianteGrado = async (req, res) => {
 
 // mostrar todos los grados con detalles del estudiante
 export const getEstudiantesConGrados = async (req, res) => {
-    try {
-        const estudiantesGradosData = await estudiantesGrados.find()
-            .populate('id_estudiante', 'nombre apellido') // Poblamos los detalles del estudiante
-            .populate('id_grado', 'nombre');             // Poblamos los detalles del grado
-        res.status(200).json(estudiantesGradosData);
-    } catch (error) {
-        res.status(500).json({ error: 'Error al obtener los estudiantes con grados', details: error.message });
-    }
+  try {
+    console.log('Obteniendo estudiantes con grados');
+    const estudiantesConGrados = await estudiantesGrados.find().populate('id_estudiante').populate('id_grado');
+    res.json(estudiantesConGrados);
+  } catch (error) {
+    console.error("Error al obtener los estudiantes con grados:", error);
+    res.status(500).json({ error: 'Error al obtener los estudiantes con grados' });
+  }
 };
 
 export const getAsignaturasByGrado = async (req, res) => {
@@ -53,4 +53,47 @@ export const getAsignaturasByGrado = async (req, res) => {
         console.error("Error al obtener las asignaturas del grado:", error);
         res.status(500).json({ error: 'Error al obtener las asignaturas', details: error.message });
     }
+};
+
+// Buscar coleccion estudiantesGrados por _id
+export const getEstudianteGradoId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(`Buscando estudianteGrado con ID: ${id}`);
+    const estudianteGrado = await estudiantesGrados.findById(id).populate('id_estudiante').populate('id_grado');
+    if (!estudianteGrado) {
+      return res.status(404).json({ error: 'EstudianteGrado no encontrado' });
+    }
+    res.json(estudianteGrado);
+  } catch (error) {
+    console.error("Error al obtener los datos del estudiante y grado:", error);
+    res.status(500).json({ error: 'Error al obtener los datos del estudiante y grado' });
+  }
+};
+
+// Actualizar desde la coleccion estudiantesgrados
+export const updateEstudianteGrado = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { id_estudiante, id_grado } = req.body;
+
+    // Validar que se proporcionen los campos necesarios
+    if (!id_estudiante && !id_grado) {
+      return res.status(400).json({ error: 'Debe proporcionar al menos un campo para actualizar' });
+    }
+
+    const updatedFields = {};
+    if (id_estudiante) updatedFields.id_estudiante = id_estudiante;
+    if (id_grado) updatedFields.id_grado = id_grado;
+
+    const estudianteGrado = await estudiantesGrados.findByIdAndUpdate(id, updatedFields, { new: true });
+    if (!estudianteGrado) {
+      return res.status(404).json({ error: 'EstudianteGrado no encontrado' });
+    }
+
+    res.json(estudianteGrado);
+  } catch (error) {
+    console.error("Error al actualizar los datos del estudiante y grado:", error);
+    res.status(500).json({ error: 'Error al actualizar los datos del estudiante y grado' });
+  }
 };

@@ -1,5 +1,7 @@
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ModalVentana from '../components/ModalVentana';
 import '../components/styles.css';
 
 function VerAsignaturas() {
@@ -9,10 +11,20 @@ function VerAsignaturas() {
   const [asignaturas, setAsignaturas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const nombreCompleto = new URLSearchParams(location.search).get('nombreCompleto');
+  const nombreGrado = new URLSearchParams(location.search).get('nombreGrado');
+  const currentUserId = new URLSearchParams(location.search).get('currentUserId'); // Capturar el id del perfil
 
   const fetchAsignaturasByGrado = async () => {
     try {
       const response = await fetch(`http://localhost:3000/api/estudiantesgrados/grado/${id_grado}`);
+      if (response.status === 404) {
+        setError('NO HAY ASIGNATURAS CREADAS PARA ESTE GRADO');
+        setIsModalOpen(true); // Abrir el modal
+        setLoading(false);
+        return;
+      }
       if (!response.ok) {
         throw new Error(`Network response was not ok. Status: ${response.status}`);
       }
@@ -35,27 +47,37 @@ function VerAsignaturas() {
     if (from) {
       navigate(decodeURIComponent(from));
     } else {
-      navigate('/estudiantesGrados/$id'); // Redirigir a la página principal si no hay página anterior
+      navigate('/'); // Redirigir a la página principal si no hay página anterior
     }
   };
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+    navigate(`/estudiantesgrados/${currentUserId}`); // Redirigir a la página estudiantesgrados con el id del perfil
+  };
+
   if (loading) return <p>Cargando...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (error && !isModalOpen) return <p>Error: {error}</p>;
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-0">
+      <ModalVentana isOpen={isModalOpen} onClose={closeModal} message={error} />
       <div className="bg-white shadow-md rounded my-0 bg-gray-400">
         <div className="px-4 py-5 border border-gray-400 bg-gray-400 flex items-center justify-between">
-          
-          <h2 className="text-3xl font-bold text-white">Asignaturas del Grado</h2>
-          <div className="flex items-center space-x-4">
-            <button
-              className="bg-blue-500 text-white text-xs px-2 py-1 rounded hover:bg-blue-600"
-              onClick={handleGoBack}
-            >
-              <i className="fa-solid fa-xmark"></i> Cerrar
-            </button>
+          <span className="text-4xl font-bold ">Sistema de Gestion Estudiantil (SGE)</span>
+          <button
+            className="bg-blue-500 text-white text-xs px-2 py-1 rounded hover:bg-blue-600"
+            onClick={handleGoBack}
+          >
+            <i className="fa-solid fa-arrow-left"></i> Regresar
+          </button>
+        </div>
+        <div className="px-4 py-5 border border-gray-400 bg-gray-400 flex items-center justify-between">
+          <div className="text-xs">
+            <p>Estudiante:<strong> {decodeURIComponent(nombreCompleto || '')}</strong></p>
+            <p>Grado Cursante:<strong> {decodeURIComponent(nombreGrado || '')}</strong></p>
           </div>
+          <p className="text-3xl font-bold text-white text-right">Asignaturas del Grado</p>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full whitespace-no-wrap">
@@ -78,7 +100,6 @@ function VerAsignaturas() {
               ))}
             </tbody>
           </table>
-          
         </div>
       </div>
     </div>

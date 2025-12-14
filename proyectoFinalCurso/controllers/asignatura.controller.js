@@ -86,7 +86,7 @@ export const deleteAsignatura = async (req, res) => {
 export const getAsignaturasByGrado = async (req, res) => {
   try {
     const { id_grado } = req.params;
-    const asignaturas = await Asignatura.find({ grado: id_grado }); // Asumiendo que el campo en la BD se llama `grado`
+    const asignaturas = await Asignatura.find({ grado: id_grado }); 
     res.status(200).json(asignaturas);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener las asignaturas por grado' });
@@ -127,3 +127,5 @@ export const getAsignaturaById = async (req, res) => {
     res.status(400).json({ error: 'Error al obtener la asignatura', details: error.message });
   } 
 }
+
+
