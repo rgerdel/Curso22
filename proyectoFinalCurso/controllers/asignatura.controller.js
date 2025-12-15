@@ -126,6 +126,20 @@ export const getAsignaturaById = async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: 'Error al obtener la asignatura', details: error.message });
   } 
-}
+};
 
+//Cuenta la cantidad de asignaturas por profesor
+ export const countAsignaturas = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const count = await Asignatura.countDocuments({ id_profesor: id });
+    if (count === 0) {
+      return res.status(404).json({ error: 'No se encontraron asignaturas para el profesor especificado' });
+    }
+    res.json({ count });
+  } catch (error) {
+    console.error("Error al obtener la cantidad de asignaturas:", error);
+    res.status(500).json({ error: 'Error al obtener la cantidad de asignaturas' });
+  }
+};
 

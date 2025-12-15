@@ -57,7 +57,7 @@ function AdministradorDashboard() {
             BIENVENIDO 
         </div>
     </div>
-    <div class="bg-gray-100 flex justify-between gap-4 px-2 py-8 bg-gray-400">
+    <div class="flex justify-between gap-4 px-2 py-8 bg-gray-400">
         <div class="bg-gray-200 h-40 rounded-2xl border border-gray-400 p-4 text-center w-full sm:w-1/3 md:w-1/3 lg:w-1/3 relative">
             <p className="text-1xl font-bold text-gray-800 uppercase">Gestion de Usuarios</p>
             <p className="text-sm text-justify">Administrar profesores y estudiantes. 
@@ -70,7 +70,7 @@ function AdministradorDashboard() {
             </p>
         </div>
         <div class="bg-gray-200 h-40 rounded-2xl border border-gray-400 p-4 text-center w-full sm:w-1/3 md:w-1/3 lg:w-1/3 relative">
-            <p className="text-1xl font-bold text-gray-800 uppercase">Gestion de Materias</p>
+            <p className="text-1xl font-bold text-gray-800 uppercase">Gestion de Asignaturas</p>
             <p className="text-sm text-justify">Administrar asignaturas.<br></br> Crea y asigna materias a profesores.</p>
             <br></br>
             <p class="mb-20 relative">

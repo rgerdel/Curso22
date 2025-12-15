@@ -12,6 +12,7 @@ import { ActualizarAsignatura } from './ActualizarAsignatura.jsx'
 import { EstudiantesGrados } from './EstudiantesGrados.jsx'
 import { VerAsignaturas } from './VerAsignaturas.jsx'
 import { ActualizarEstudianteGrado} from './ActualizarEstudianteGrado.jsx'
+import { ListarTareas } from './ListarTareas.jsx'
  
 
 
@@ -29,5 +30,6 @@ export {
     ActualizarAsignatura,
     EstudiantesGrados,
     VerAsignaturas,
-    ActualizarEstudianteGrado
+    ActualizarEstudianteGrado,
+    ListarTareas
 }   

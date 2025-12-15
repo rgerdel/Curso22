@@ -15,6 +15,7 @@ import { ActualizarAsignatura } from './pages/Pages.jsx'
 import { EstudiantesGrados } from './pages/Pages.jsx'
 import { VerAsignaturas } from './pages/Pages.jsx'
 import { ActualizarEstudianteGrado } from './pages/Pages.jsx'
+import { ListarTareas } from './pages/Pages.jsx'
 
 
          
@@ -42,6 +43,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/verAsignaturas/:id_grado" element={< VerAsignaturas />} />
         <Route path="/verAsignaturas/:id" element={< EstudiantesGrados />} />
         <Route path="/ActualizarEstudianteGrado/:id" element={< ActualizarEstudianteGrado />} />
+        <Route path="/tareas/:id" element={< ListarTareas />} />
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </BrowserRouter>

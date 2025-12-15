@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { createAsignatura, getAllAsignaturas, updateAsignatura, getAsignaturaByQuery, deleteAsignatura, 
-    getAsignaturasByGrado, getAsignaturaById, getAsignaturasConDetalles } from '../controllers/asignatura.controller.js';
+    getAsignaturasByGrado, getAsignaturaById, getAsignaturasConDetalles, 
+    countAsignaturas} from '../controllers/asignatura.controller.js';
 
 const router = Router();    
 
@@ -27,6 +28,11 @@ router.get('/asignaturas/grado/:id_grado', getAsignaturasByGrado);
 
 // Ruta para traer todas las Asignaturas con detalles de profesor y grado
 router.get('/asignaturas/detalles', getAsignaturasConDetalles);
+
+//Ruta para traer la cantidad de asignaturas por Profesor
+router.get ('/asignaturas/count/:id', countAsignaturas)
+
+
 
 export default router;
 

@@ -10,6 +10,9 @@ import loginRoutes from './routes/login.routes.js';
 import estudiantesGradosRoutes from './routes/estudiantesGrados.routes.js';
 import cors from 'cors';
 
+// Establecer la zona horaria en UTC
+process.env.TZ = 'UTC';
+
 const app = express();
 const port = 3000;
 

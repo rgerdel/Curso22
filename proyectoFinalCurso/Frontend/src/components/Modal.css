@@ -33,3 +33,7 @@
   font-size: 1.5rem;
   cursor: pointer;
 }
+
+.text-xxs {
+  font-size: 0.6rem; /* Esto es más pequeño que text-xs, que es 0.75rem */
+}

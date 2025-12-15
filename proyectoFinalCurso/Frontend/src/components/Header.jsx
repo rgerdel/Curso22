@@ -24,7 +24,10 @@ const Header = ({ usuario, id }) => {
   return (
     <div className="px-4 py-5 border border-gray-300 flex items-center justify-between bg-gray-300">
       <div className="flex items-center">
-        <span className="text-4xl font-bold ">Sistema de Gestion Estudiantil (SGE)</span>
+        <span className="text-4xl font-bold">
+          Sistema de Gestion Estudiantil
+          <span style={{ color: 'red' }}> (SGE)</span>
+        </span>
       </div>
       <div className="flex flex-col items-end space-y-2">
         <span className="font-bold text-sm">

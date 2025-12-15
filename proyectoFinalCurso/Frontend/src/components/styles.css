@@ -10,3 +10,7 @@
   padding: 4px; /* Espacio alrededor del texto */
   display: inline-block; /* Para que el borde se ajuste al texto */
 }
+
+.text-xxs {
+  font-size: 0.6rem; /* Esto es más pequeño que text-xs, que es 0.75rem */
+}

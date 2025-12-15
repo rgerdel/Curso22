@@ -14,6 +14,7 @@ import mongoosePaginate from 'mongoose-paginate-v2';
  */
 
 const asignaturaSchema = new mongoose.Schema({
+  //id: mongoose.Schema.Types.ObjectId,
   nombre: {
     type: String,
     required: true,
@@ -30,10 +31,10 @@ const asignaturaSchema = new mongoose.Schema({
     trim: true,
     lowercase: true,
   },
-  id_profesor: {
-    type: mongoose.Schema.Types.ObjectId,
+  id_profesor: { 
+    type: mongoose.Schema.Types.ObjectId, 
     ref: 'Usuario',
-    required: true,
+    required: true 
   },
   grado: {
     type: mongoose.Schema.Types.ObjectId,
@@ -57,5 +58,5 @@ const asignaturaSchema = new mongoose.Schema({
 
 asignaturaSchema.plugin(mongoosePaginate);
 
-export const Asignatura = mongoose.model('Asignatura', asignaturaSchema);
+export const Asignatura = mongoose.model('Asignatura', asignaturaSchema, 'asignaturas');
        
