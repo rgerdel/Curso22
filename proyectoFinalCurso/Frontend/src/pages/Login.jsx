@@ -124,6 +124,7 @@ function Login() {
             </button>
           </div>
         </form>
+        <div className="text-center mt-4 text-xs">Correo electrónico: administrador@gmail.com Contrasena: Admin1234.</div>
         <p className="text-center mt-4 text-xs"></p>
         {error && <p className="text-red-500 text-center mt-4">{error}</p>}
       </div>
